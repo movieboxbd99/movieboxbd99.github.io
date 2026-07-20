@@ -8632,3 +8632,27 @@ var _historyVideo   = JSON.parse(localStorage.getItem('castfm_hist_video') || '[
     if (btn) btn.classList.add('active');
   };
 })();
+// ══════════════════════════════════════
+// POPUP AD — shows 10s after every app open
+// ══════════════════════════════════════
+(function () {
+  function showPopupAd() {
+    var overlay = document.getElementById('popupAdOverlay');
+    var box = document.getElementById('popupAdBox');
+    if (!overlay || !box) return;
+    overlay.classList.add('show');
+    box.classList.add('show');
+  }
+
+  window.closePopupAd = function () {
+    var overlay = document.getElementById('popupAdOverlay');
+    var box = document.getElementById('popupAdBox');
+    if (!overlay || !box) return;
+    overlay.classList.remove('show');
+    box.classList.remove('show');
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(showPopupAd, 10000);
+  });
+})();

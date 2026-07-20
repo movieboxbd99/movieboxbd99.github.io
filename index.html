@@ -484,18 +484,6 @@ Login
 </div>
 <!-- Podcast Category Episode Sections -->
 <div id="podcastCatEpSections"></div>
-<div style="display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;">
-<script>
-  atOptions = {
-    'key' : 'df93619c4cda58c7e51da5923e05060d',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
-</div>
 <!-- For You Section -->
 <div id="forYouSection" style="display:none;">
 <div class="for-you-header">
@@ -1037,6 +1025,27 @@ Login
 <div class="chat-topbar-title">Poll</div>
 </div>
 <div id="pollBody" style="flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;"></div>
+</div>
+<!-- ══════════════════════════════════════
+     POPUP AD (shows 10s after app open)
+══════════════════════════════════════ -->
+<div id="popupAdOverlay" onclick="closePopupAd()"></div>
+<div id="popupAdBox">
+<button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+<div id="popupAdSlot">
+<script>
+  atOptions = {
+    'key' : 'df93619c4cda58c7e51da5923e05060d',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
+</div>
 </div>
 <script>var CURRENT_VERSION = '1.0';</script>
 <script src="script.js" defer></script>
