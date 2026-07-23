@@ -1,4 +1,4 @@
-const CACHE = 'castfm-v7.5.7';
+const CACHE = 'castfm-v7.5.8';
 const ASSETS = [
   '/',
   './style.css',
