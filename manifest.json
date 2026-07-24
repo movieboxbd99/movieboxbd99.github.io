@@ -4,7 +4,7 @@
   "short_name": "MovieBox BD",
   "version": "4.0.2",
   "description": "moviebox bd - Live TV, FM, Movie & Podcast",
-  "start_url": "https://mocviebox-bd.xyz/index.html",
+  "start_url": "https://moviebox-bd.xyz/index.html",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
