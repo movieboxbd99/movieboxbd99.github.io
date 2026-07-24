@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "xyz.moviebox_bd.twa",
+        "sha256_cert_fingerprints": ["4B:72:9D:4D:F2:1E:57:72:F3:D7:C3:1A:12:38:29:9D:11:CD:76:64:E5:70:32:07:C5:DE:8D:34:8A:C0:5A:07"]
+      }
+    }]
