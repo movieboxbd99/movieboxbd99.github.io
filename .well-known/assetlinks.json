@@ -1,8 +1,15 @@
 [{
+
       "relation": ["delegate_permission/common.handle_all_urls"],
+
       "target": {
+
         "namespace": "android_app",
+
         "package_name": "xyz.moviebox_bd.twa",
-        "sha256_cert_fingerprints": ["66:02:F9:63:46:6C:A7:8E:94:DF:6E:88:64:DD:33:A9:F4:C1:2E:3C:26:4D:15:DE:81:47:AC:DA:91:2B:25:0F"]
+
+        "sha256_cert_fingerprints": ["C7:05:00:36:11:91:4A:F1:8D:86:78:25:81:69:A0:59:AC:4E:AF:B6:F8:D2:F5:28:B0:7E:B1:0E:A3:6B:9E:41"]
+
       }
+
     }]
