@@ -231,6 +231,11 @@
 
     <!-- Right Header Controls (Share & 3-Dot Menu) -->
     <div class="flex items-center gap-1.5">
+      <!-- Dark Mode Quick Toggle Button -->
+      <button onclick="toggleDarkMode()" id="headerThemeBtn" title="Toggle Theme" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95" style="background: var(--surface-sub); color: var(--text);">
+        <i class="fa-solid fa-moon text-sm" id="headerThemeIcon"></i>
+      </button>
+
       <button onclick="shareApp()" title="Share App" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95" style="background: var(--surface-sub); color: var(--text);">
         <i class="fa-solid fa-share-nodes text-sm"></i>
       </button>
@@ -411,13 +416,14 @@
             </div>
           </div>
 
+          <!-- Replaced Dark Mode Card with Podcast & Radio feature -->
           <div class="p-2.5 rounded-xl border flex items-center gap-2.5 transition-all duration-200" style="background: var(--surface); border-color: var(--border);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-amber-500/10 text-amber-500 shrink-0">
-              <i class="fa-solid fa-moon text-sm"></i>
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-500/10 text-emerald-500 shrink-0">
+              <i class="fa-solid fa-radio text-sm"></i>
             </div>
             <div>
-              <div class="text-[11px] font-bold" style="color: var(--text);">ডার্ক ও নাইট মোড</div>
-              <div class="text-[9px] font-medium" style="color: var(--muted);">Eye protection</div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">পডকাস্ট ও এফএম রেডিও</div>
+              <div class="text-[9px] font-medium" style="color: var(--muted);">Audio streaming</div>
             </div>
           </div>
         </div>
@@ -494,25 +500,6 @@
         </div>
         <button onclick="toggleMenu()" class="w-8 h-8 rounded-full flex items-center justify-center transition active:scale-90 text-sm" style="background: var(--surface-sub); color: var(--text);">
           <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <!-- Theme Switcher (Light / Dark Mode Switch) -->
-      <div class="p-3.5 rounded-2xl border flex items-center justify-between shadow-sm" style="background: var(--surface-sub); border-color: var(--border);">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-rose-500/10 text-rose-500 text-lg shrink-0">
-            <i class="fa-solid fa-moon" id="themeIcon"></i>
-          </div>
-          <div>
-            <div class="text-xs font-bold" style="color: var(--text);">ডার্ক মোড (Dark Mode)</div>
-            <div class="text-[10px] font-medium" style="color: var(--muted);" id="themeStatusText">লাইট মোড সক্রিয় রয়েছে</div>
-          </div>
-        </div>
-
-        <button onclick="toggleDarkMode()" aria-label="Toggle Theme" class="relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-300 focus:outline-none" style="background-color: var(--border);" id="themeToggleSwitch">
-          <span class="inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300 translate-x-1 flex items-center justify-center" id="themeToggleThumb">
-            <i class="fa-solid fa-sun text-[10px] text-amber-500" id="themeThumbIcon"></i>
-          </span>
         </button>
       </div>
 
@@ -725,24 +712,12 @@
   }
 
   function updateThemeUI(isDark) {
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeStatusText');
-    const toggleSwitch = document.getElementById('themeToggleSwitch');
-    const toggleThumb = document.getElementById('themeToggleThumb');
-    const thumbIcon = document.getElementById('themeThumbIcon');
+    const headerIcon = document.getElementById('headerThemeIcon');
 
     if (isDark) {
-      if (themeIcon) themeIcon.className = "fa-solid fa-moon text-indigo-400";
-      if (themeText) themeText.textContent = "ডার্ক মোড সক্রিয় রয়েছে (Dark)";
-      if (toggleSwitch) toggleSwitch.style.backgroundColor = "#6366f1";
-      if (toggleThumb) toggleThumb.style.transform = "translateX(22px)";
-      if (thumbIcon) thumbIcon.className = "fa-solid fa-moon text-[10px] text-indigo-600";
+      if (headerIcon) headerIcon.className = "fa-solid fa-sun text-sm text-amber-400";
     } else {
-      if (themeIcon) themeIcon.className = "fa-solid fa-sun text-amber-500";
-      if (themeText) themeText.textContent = "লাইট মোড সক্রিয় রয়েছে (Light)";
-      if (toggleSwitch) toggleSwitch.style.backgroundColor = "var(--border)";
-      if (toggleThumb) toggleThumb.style.transform = "translateX(4px)";
-      if (thumbIcon) thumbIcon.className = "fa-solid fa-sun text-[10px] text-amber-500";
+      if (headerIcon) headerIcon.className = "fa-solid fa-moon text-sm";
     }
   }
   initTheme();
