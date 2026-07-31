@@ -94,40 +94,7 @@
 
     /* Screenshots Scrollbar hide */
     .screenshots-wrap::-webkit-scrollbar { display: none; }
-    .screenshots-wrap { 
-      -ms-overflow-style: none; 
-      scrollbar-width: none; 
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-    }
-
-    .screenshot-item {
-      scroll-snap-align: center;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .screenshot-item::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 60%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transform: skewX(-25deg);
-      pointer-events: none;
-    }
-    .screenshot-item:hover::before, .screenshot-item:active::before {
-      left: 150%;
-      transition: left 0.75s ease-in-out;
-    }
-    .screenshot-item:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: 0 14px 28px -6px rgba(225, 29, 72, 0.3), 0 6px 12px -4px rgba(0,0,0,0.12);
-      border-color: var(--accent) !important;
-    }
-    .screenshot-item:active {
-      transform: scale(0.96);
-    }
+    .screenshots-wrap { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* Button Animations */
     .btn-install {
@@ -201,16 +168,9 @@
 
     /* Lightbox Preview */
     .lightbox {
-      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
     }
     .lightbox.open { opacity: 1; pointer-events: auto; }
-    .lightbox #lightboxImg {
-      transform: scale(0.85) translateY(20px);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .lightbox.open #lightboxImg {
-      transform: scale(1) translateY(0);
-    }
   </style>
 </head>
 <body>
@@ -231,11 +191,6 @@
 
     <!-- Right Header Controls (Share & 3-Dot Menu) -->
     <div class="flex items-center gap-1.5">
-      <!-- Dark Mode Quick Toggle Button -->
-      <button onclick="toggleDarkMode()" id="headerThemeBtn" title="Toggle Theme" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95" style="background: var(--surface-sub); color: var(--text);">
-        <i class="fa-solid fa-moon text-sm" id="headerThemeIcon"></i>
-      </button>
-
       <button onclick="shareApp()" title="Share App" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95" style="background: var(--surface-sub); color: var(--text);">
         <i class="fa-solid fa-share-nodes text-sm"></i>
       </button>
@@ -321,53 +276,43 @@
     <section class="mt-6">
       <div class="px-5 mb-2.5 flex justify-between items-center">
         <h3 class="text-sm font-bold flex items-center gap-2" style="color: var(--text);">
-          <i class="fa-solid fa-images text-rose-500 animate-pulse"></i> App Screenshots
+          <i class="fa-solid fa-images text-rose-500"></i> App Screenshots
         </h3>
-        <div class="flex items-center gap-1.5">
-          <span class="text-[11px] font-medium" style="color: var(--muted);">Tap to enlarge</span>
-          <div class="flex items-center gap-1 ml-1">
-            <button onclick="scrollScreenshots(-1)" title="Previous" class="w-6 h-6 rounded-full flex items-center justify-center border text-[10px] transition active:scale-90 hover:bg-rose-500/10 hover:text-rose-500" style="background: var(--surface-sub); border-color: var(--border); color: var(--text);">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button onclick="scrollScreenshots(1)" title="Next" class="w-6 h-6 rounded-full flex items-center justify-center border text-[10px] transition active:scale-90 hover:bg-rose-500/10 hover:text-rose-500" style="background: var(--surface-sub); border-color: var(--border); color: var(--text);">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
+        <span class="text-[11px] font-medium" style="color: var(--muted);">Tap to enlarge</span>
       </div>
 
-      <div id="screenshotsWrap" class="screenshots-wrap flex gap-3 overflow-x-auto px-5 py-2">
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496548462.jpg" alt="Home Screen" class="w-full h-auto block">
+      <div class="screenshots-wrap flex gap-3 overflow-x-auto px-5 py-1">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496545718.jpg" alt="Screenshot 1" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547740.jpg" alt="Category Browse" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496548462.jpg" alt="Screenshot 2" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547045.jpg" alt="Live TV Channels" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547740.jpg" alt="Screenshot 3" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549112.jpg" alt="Video Player" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547045.jpg" alt="Screenshot 4" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549838.jpg" alt="Trending Movies" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549112.jpg" alt="Screenshot 5" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/Screenshot_20260513_111121_Chrome_1778649165470.jpg" alt="Web Series" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549838.jpg" alt="Screenshot 6" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496550676.jpg" alt="Radio & FM" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/Screenshot_20260513_111121_Chrome_1778649165470.jpg" alt="Screenshot 7" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778497325179.jpg" alt="Audio Podcasts" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496550676.jpg" alt="Screenshot 8" class="w-full h-auto block">
         </div>
-        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
-          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496552384.jpg" alt="Settings & Theme" class="w-full h-auto block">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778497325179.jpg" alt="Screenshot 9" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496552384.jpg" alt="Screenshot 10" class="w-full h-auto block">
         </div>
       </div>
-
-      <!-- Screenshot Indicators/Dots -->
-      <div id="screenshotDots" class="flex justify-center items-center gap-1.5 mt-2"></div>
     </section>
 
     <!-- ABOUT THIS APP / APP INFO SECTION (Google Play & App Store Style) -->
@@ -385,45 +330,36 @@
         </p>
 
         <!-- Highlights & Key Features Grid -->
-        <div class="grid grid-cols-2 gap-2.5 my-3.5">
-          <div class="p-2.5 rounded-xl border flex items-center gap-2.5 transition-all duration-200" style="background: var(--surface); border-color: var(--border);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-rose-500/10 text-rose-500 shrink-0">
-              <i class="fa-solid fa-tv text-sm"></i>
-            </div>
+        <div class="grid grid-cols-2 gap-2 my-3">
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-tv text-rose-500 text-sm"></i>
             <div>
-              <div class="text-[11px] font-bold" style="color: var(--text);">লাইভ টিভি ও স্পোর্টস</div>
-              <div class="text-[9px] font-medium" style="color: var(--muted);">Buffer free streaming</div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Live TV & Sports</div>
+              <div class="text-[9px]" style="color: var(--muted);">Buffer free streaming</div>
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl border flex items-center gap-2.5 transition-all duration-200" style="background: var(--surface); border-color: var(--border);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-purple-500/10 text-purple-500 shrink-0">
-              <i class="fa-solid fa-film text-sm"></i>
-            </div>
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-film text-purple-500 text-sm"></i>
             <div>
-              <div class="text-[11px] font-bold" style="color: var(--text);">এইচডি মুভি ও সিরিজ</div>
-              <div class="text-[9px] font-medium" style="color: var(--muted);">Bangla Subtitle</div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">HD Movies</div>
+              <div class="text-[9px]" style="color: var(--muted);">Bangla Subtitle</div>
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl border flex items-center gap-2.5 transition-all duration-200" style="background: var(--surface); border-color: var(--border);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-sky-500/10 text-sky-500 shrink-0">
-              <i class="fa-solid fa-cloud-arrow-down text-sm"></i>
-            </div>
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-cloud-arrow-down text-sky-500 text-sm"></i>
             <div>
-              <div class="text-[11px] font-bold" style="color: var(--text);">ফাস্ট ডাউনলোড</div>
-              <div class="text-[9px] font-medium" style="color: var(--muted);">Resume support</div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Fast Download</div>
+              <div class="text-[9px]" style="color: var(--muted);">Resume support</div>
             </div>
           </div>
 
-          <!-- Replaced Dark Mode Card with Podcast & Radio feature -->
-          <div class="p-2.5 rounded-xl border flex items-center gap-2.5 transition-all duration-200" style="background: var(--surface); border-color: var(--border);">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-500/10 text-emerald-500 shrink-0">
-              <i class="fa-solid fa-radio text-sm"></i>
-            </div>
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-moon text-amber-500 text-sm"></i>
             <div>
-              <div class="text-[11px] font-bold" style="color: var(--text);">পডকাস্ট ও এফএম রেডিও</div>
-              <div class="text-[9px] font-medium" style="color: var(--muted);">Audio streaming</div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Dark Mode</div>
+              <div class="text-[9px]" style="color: var(--muted);">Eye protection</div>
             </div>
           </div>
         </div>
@@ -500,6 +436,23 @@
         </div>
         <button onclick="toggleMenu()" class="w-8 h-8 rounded-full flex items-center justify-center transition active:scale-90 text-sm" style="background: var(--surface-sub); color: var(--text);">
           <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Theme Switcher (Light / Dark Mode Switch) -->
+      <div class="p-3.5 rounded-xl border flex items-center justify-between" style="background: var(--surface-sub); border-color: var(--border);">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-rose-500/10 text-rose-500 text-base">
+            <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold" style="color: var(--text);">Theme Mode (সাদা / কালো)</div>
+            <div class="text-[10px]" style="color: var(--muted);" id="themeStatusText">Light Mode Active</div>
+          </div>
+        </div>
+
+        <button onclick="toggleDarkMode()" class="px-3.5 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 active:scale-95" style="background: var(--surface); color: var(--text); border-color: var(--border);">
+          <i class="fa-solid fa-moon text-amber-400"></i> Toggle
         </button>
       </div>
 
@@ -712,12 +665,14 @@
   }
 
   function updateThemeUI(isDark) {
-    const headerIcon = document.getElementById('headerThemeIcon');
-
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeStatusText');
     if (isDark) {
-      if (headerIcon) headerIcon.className = "fa-solid fa-sun text-sm text-amber-400";
+      if (themeIcon) themeIcon.className = "fa-solid fa-moon text-amber-400";
+      if (themeText) themeText.textContent = "Dark Mode Active (কালো)";
     } else {
-      if (headerIcon) headerIcon.className = "fa-solid fa-moon text-sm";
+      if (themeIcon) themeIcon.className = "fa-solid fa-sun text-rose-500";
+      if (themeText) themeText.textContent = "Light Mode Active (সাদা)";
     }
   }
   initTheme();
@@ -752,45 +707,6 @@
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
   }
-
-  // Smooth Scroll Screenshots & Navigation Dots
-  function scrollScreenshots(direction) {
-    const wrap = document.getElementById('screenshotsWrap');
-    if (wrap) {
-      const scrollAmount = 180 * direction;
-      wrap.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  }
-
-  (function initScreenshotIndicators() {
-    const wrap = document.getElementById('screenshotsWrap');
-    const dotsContainer = document.getElementById('screenshotDots');
-    if (!wrap || !dotsContainer) return;
-
-    const items = wrap.querySelectorAll('.screenshot-item');
-    dotsContainer.innerHTML = '';
-
-    items.forEach((_, idx) => {
-      const dot = document.createElement('span');
-      dot.className = `h-1.5 rounded-full transition-all duration-300 ${idx === 0 ? 'w-5 bg-rose-500' : 'w-1.5 bg-slate-300 dark:bg-slate-700'}`;
-      dotsContainer.appendChild(dot);
-    });
-
-    wrap.addEventListener('scroll', function() {
-      const scrollPos = wrap.scrollLeft;
-      const itemWidth = 156;
-      const activeIdx = Math.min(Math.floor((scrollPos + itemWidth / 2) / itemWidth), items.length - 1);
-
-      const dots = dotsContainer.children;
-      for (let i = 0; i < dots.length; i++) {
-        if (i === activeIdx) {
-          dots[i].className = 'h-1.5 w-5 rounded-full bg-rose-500 transition-all duration-300';
-        } else {
-          dots[i].className = 'h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all duration-300';
-        }
-      }
-    });
-  })();
 
   // Share Application
   function shareApp() {
