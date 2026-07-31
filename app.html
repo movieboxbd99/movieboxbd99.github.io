@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSN389YVZV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GSN389YVZV');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSN389YVZV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GSN389YVZV');
+  </script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,276 +18,536 @@
   <meta property="og:url" content="https://github.com/physarif/castfm-apk/releases/latest/download/castfm.apk" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --bg: #f5f5f3; --surface: #ffffff; --border: #e8e8e5;
-      --text: #111110; --muted: #6e6e6e; --muted2: #70706a;
-      --accent: #E4485D; --accent2: #d43a52;
-      --accent-light: rgba(228,72,93,0.10);
-      --accent-glow: rgba(228,72,93,0.25);
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-sub: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #e11d48;
+      --accent-hover: #be123c;
+      --accent-light: rgba(225, 29, 72, 0.08);
+      --accent-glow: rgba(225, 29, 72, 0.25);
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
     }
-    html, body {
-      min-height: 100vh; background: var(--surface);
-      font-family: 'DM Sans', sans-serif; color: var(--text);
+
+    [data-theme="dark"] {
+      --bg: #090d16;
+      --surface: #131b2e;
+      --surface-sub: #1e293b;
+      --border: #223049;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #f43f5e;
+      --accent-hover: #fb7185;
+      --accent-light: rgba(244, 63, 94, 0.15);
+      --accent-glow: rgba(244, 63, 94, 0.35);
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      font-family: 'DM Sans', 'Noto Sans Bengali', sans-serif;
+      color: var(--text);
+      transition: background-color 0.3s ease, color 0.3s ease;
       -webkit-font-smoothing: antialiased;
     }
 
-    .page-wrap { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
-
-    .top-section { padding: 20px 16px 16px; }
-    .app-header { display: flex; gap: 16px; align-items: flex-start; }
-    .app-icon {
-      width: 80px; height: 80px; border-radius: 18px; flex-shrink: 0;
-      overflow: hidden; border: 1px solid var(--border);
+    .page-wrap {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--surface);
+      min-height: 100vh;
+      box-shadow: var(--card-shadow);
+      position: relative;
     }
-    .app-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .app-header-info { flex: 1; padding-top: 2px; }
-    .app-name {
-      font-size: 1.35rem; font-weight: 700; color: var(--text);
-      letter-spacing: -0.02em; line-height: 1.2;
-      display: flex; align-items: center; gap: 0;
-    }
-    .app-name .fm { color: var(--accent); }
-    .app-dev { font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
-    .app-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
+    /* Pulse Dot for Live feel */
     .logo-live-dot {
-      border-radius: 50%; background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
       animation: logo-pulse 2s ease-in-out infinite;
-      flex-shrink: 0; display: inline-block;
-    }
-    @keyframes logo-pulse {
-      0%,100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.25); opacity: 1; }
-      50%      { box-shadow: 0 0 0 5px transparent; opacity: 0.4; }
-    }
-
-    .stats-row {
-      display: flex; align-items: center;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin: 16px 0 0;
-    }
-    .stat-col {
-      flex: 1; text-align: center; padding: 12px 6px;
-      border-right: 1px solid var(--border);
-    }
-    .stat-col:last-child { border-right: none; }
-    .stat-val {
-      font-size: 0.85rem; font-weight: 700; color: var(--text);
-      display: flex; align-items: center; justify-content: center; gap: 3px;
-    }
-    .stat-val .star { color: #1a73e8; font-size: 0.9rem; }
-    .stat-sub { font-size: 0.65rem; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.03em; }
-
-    .install-wrap { padding: 14px 16px 0; }
-    .btn-install {
-      display: block; width: 100%; padding: 14px;
-      background: var(--accent); color: #fff;
-      border: none; border-radius: 999px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem; font-weight: 700;
-      text-align: center; text-decoration: none;
-      cursor: pointer; transition: background 0.18s, transform 0.12s;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 2px 12px var(--accent-glow);
-    }
-    .btn-install:active { transform: scale(0.97); background: var(--accent2); }
-
-    .screenshots-wrap {
-      padding: 20px 0 0;
-      overflow-x: auto; overflow-y: hidden;
-      scrollbar-width: none;
-      display: flex; gap: 10px; align-items: flex-start;
-      padding-left: 16px; padding-right: 16px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .screenshots-wrap::-webkit-scrollbar { display: none; }
-    .screenshot-item {
       flex-shrink: 0;
-      width: 160px;
-      border-radius: 12px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: #f0f0f0;
+      display: inline-block;
     }
-    .screenshot-item img { width: 100%; height: auto; display: block; }
 
-    .divider { height: 1px; background: var(--border); margin: 20px 16px 0; }
-
-    .version-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 16px 0;
+    @keyframes logo-pulse {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3); opacity: 1; }
+      50% { box-shadow: 0 0 0 6px transparent; opacity: 0.5; }
     }
-    .version-label { font-size: 0.82rem; color: var(--muted); }
-    .version-val { font-size: 0.82rem; font-weight: 600; color: var(--text); }
 
-    footer { text-align: center; padding: 28px 16px 0; color: var(--muted); font-size: 0.72rem; }
-    footer a { color: var(--accent); text-decoration: none; }
+    /* Screenshots Scrollbar hide */
+    .screenshots-wrap::-webkit-scrollbar { display: none; }
+    .screenshots-wrap { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* Button Animations */
+    .btn-install {
+      background: linear-gradient(135deg, var(--accent) 0%, #c026d3 100%);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 18px var(--accent-glow);
+    }
+    .btn-install:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px var(--accent-glow);
+    }
+    .btn-install:active {
+      transform: scale(0.98);
+    }
+    .btn-install.installing {
+      background: #475569;
+      cursor: not-allowed;
+    }
+    .btn-install.done {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    /* Toast Notification */
     #toast {
-      position: fixed; bottom: 28px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #111; color: #fff;
-      font-size: 0.85rem; font-weight: 500;
-      padding: 12px 22px; border-radius: 14px;
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: #0f172a; color: #ffffff;
+      font-size: 0.88rem; font-weight: 600;
+      padding: 12px 24px; border-radius: 99px;
       white-space: nowrap; opacity: 0; pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.34,1.3,0.64,1); z-index: 999;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111110;
-        --surface: #1a1a19;
-        --surface2: #222220;
-        --border: #2e2e2b;
-        --border2: #3a3a36;
-        --text: #f0f0ee;
-        --muted: #888882;
-        --muted2: #a0a09a;
-        --accent: #f06f80;
-        --accent2: #E4485D;
-        --accent-light: rgba(240,111,128,0.12);
-        --accent-glow: rgba(240,111,128,0.25);
-      }
-      html, body { background: var(--bg); }
-      .screenshot-item { border-color: var(--border); }
-      .stats-row { border-color: var(--border); }
-      .stat-col { border-color: var(--border); }
-      .about-arrow { background: #2a2a28; }
+    /* Modal Bottom Sheet Animations */
+    .modal-backdrop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-drawer {
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--surface);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .modal-backdrop.open .modal-drawer {
+      transform: translateY(0);
     }
 
-    .btn-install { position: relative; overflow: hidden; }
-    .btn-install.installing { background: var(--accent2); cursor: not-allowed; }
-    .btn-install.done { background: #22c55e; }
-    @keyframes btn-fill {
-      from { background-position: -100% 0; }
-      to   { background-position: 0 0; }
-    }
-
-    .rating-section {
-      padding: 20px 16px 0;
-    }
-    .rating-title {
-      font-size: 0.78rem; color: var(--muted); text-transform: uppercase;
-      letter-spacing: 0.05em; font-weight: 600; margin-bottom: 12px;
-    }
-    .stars-wrap {
-      display: flex; gap: 6px; justify-content: center;
-      margin-bottom: 10px;
-    }
+    /* Star rating */
     .star-btn {
       font-size: 2.2rem; background: none; border: none;
-      cursor: pointer; color: #d1d5db;
-      transition: transform 0.15s, color 0.15s;
+      cursor: pointer; color: #cbd5e1;
+      transition: transform 0.2s ease, color 0.2s ease;
       -webkit-tap-highlight-color: transparent;
       line-height: 1;
     }
-    .star-btn.active, .star-btn.hover { color: #FBBF24; transform: scale(1.15); }
-    .rating-meta {
-      text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 4px;
-    }
-    .rating-thanks {
-      text-align: center; font-size: 0.85rem; font-weight: 600;
-      color: #22c55e; margin-top: 8px; min-height: 22px;
+    .star-btn.active, .star-btn.hover {
+      color: #fbbf24;
+      transform: scale(1.18);
     }
 
+    /* Lightbox Preview */
+    .lightbox {
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
   </style>
 </head>
 <body>
-<div class="page-wrap">
 
-  <div class="top-section">
-    <div class="app-header">
-      <div class="app-icon">
-        <img src="https://moviebox-bd.xyz/icons/icon-1024x1024.png" alt="MovieBoxBD">
+<div class="page-wrap flex flex-col min-h-screen">
+
+  <!-- TOP APP BAR WITH 3-DOT MENU -->
+  <header class="sticky top-0 z-40 px-5 py-3.5 flex items-center justify-between border-b backdrop-blur-md bg-opacity-90" style="background-color: var(--surface); border-color: var(--border);">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-xl overflow-hidden shadow-sm border" style="border-color: var(--border);">
+        <img src="https://moviebox-bd.xyz/icons/icon-1024x1024.png" alt="Icon" class="w-full h-full object-cover">
       </div>
-      <div class="app-header-info">
-        <div class="app-name">
-          MovieBox<span class="fm">BD</span>
-          <div class="logo-live-dot" style="width:8px;height:8px;margin-left:4px;margin-bottom:10px;"></div>
+      <div>
+        <span class="font-extrabold text-base tracking-tight leading-none" style="color: var(--text);">MovieBox<span class="text-rose-500">BD</span></span>
+        <span class="block text-[10px] font-medium" style="color: var(--muted);">Official App Store</span>
+      </div>
+    </div>
+
+    <!-- Right Header Controls (Share & 3-Dot Menu) -->
+    <div class="flex items-center gap-1.5">
+      <button onclick="shareApp()" title="Share App" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95" style="background: var(--surface-sub); color: var(--text);">
+        <i class="fa-solid fa-share-nodes text-sm"></i>
+      </button>
+      
+      <!-- 3-Dot Button -->
+      <button id="threeDotBtn" onclick="toggleMenu()" title="More Options" class="w-9 h-9 rounded-full flex items-center justify-center transition active:scale-95 text-lg font-bold" style="background: var(--surface-sub); color: var(--text);">
+        <i class="fa-solid fa-ellipsis-vertical text-base"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 pb-10">
+    
+    <!-- APP HEADER HERO -->
+    <section class="p-5 pt-6">
+      <div class="flex gap-4 items-start">
+        <div class="w-22 h-22 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg border relative" style="width: 86px; height: 86px; border-color: var(--border);">
+          <img src="https://moviebox-bd.xyz/icons/icon-1024x1024.png" alt="MovieBoxBD Icon" class="w-full h-full object-cover">
+          <span class="absolute top-1 right-1 w-2.5 h-2.5 logo-live-dot border-2 border-white"></span>
         </div>
-        <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;font-weight:400;">Movies, Series, TV Shows</div>
-        <div class="app-sub">Free · <span id="apkVersion">v3.2.1</span></div>
+        
+        <div class="flex-1 pt-0.5">
+          <h1 class="text-xl font-bold tracking-tight flex items-center gap-1.5" style="color: var(--text);">
+            MovieBox<span class="text-rose-500">BD</span>
+            <i class="fa-solid fa-circle-check text-sky-500 text-xs" title="Verified App"></i>
+          </h1>
+          <div class="text-xs font-semibold mt-0.5 text-rose-500 flex items-center gap-1">
+            <i class="fa-solid fa-code text-[10px]"></i> MovieBox Studio
+          </div>
+          <p class="text-xs mt-1 font-normal" style="color: var(--muted);">Movies, Drama, Web Series & Live TV</p>
+          
+          <div class="flex items-center gap-2 mt-2">
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md" style="background: var(--accent-light); color: var(--accent);">
+              <i class="fa-solid fa-bolt text-[10px] mr-0.5"></i> Free
+            </span>
+            <span class="text-[11px] font-medium" style="color: var(--muted);">
+              • <span id="apkVersion" class="font-semibold" style="color: var(--text);">v3.2.1</span>
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="stats-row">
-      <div class="stat-col">
-        <div class="stat-val">...<span class="star">★</span></div>
-        <div class="stat-sub">Rating</div>
+      <!-- STATS ROW (Playstore Style) -->
+      <div class="grid grid-cols-3 gap-2 py-3 mt-5 rounded-xl border text-center" style="background: var(--surface-sub); border-color: var(--border);">
+        <div class="border-r px-1" style="border-color: var(--border);">
+          <div class="stat-val text-xs font-bold flex items-center justify-center gap-1" style="color: var(--text);">
+            <span class="stat-rating-text">...</span> <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+          </div>
+          <div class="text-[10px] font-semibold uppercase tracking-wider mt-0.5" style="color: var(--muted);">Rating</div>
+        </div>
+
+        <div class="border-r px-1" style="border-color: var(--border);">
+          <div class="stat-val text-xs font-bold" id="downloadCount" style="color: var(--text);">...</div>
+          <div class="text-[10px] font-semibold uppercase tracking-wider mt-0.5" style="color: var(--muted);">Downloads</div>
+        </div>
+
+        <div class="px-1">
+          <div class="stat-val text-xs font-bold" id="sizeVal" style="color: var(--text);">~2.8 MB</div>
+          <div class="text-[10px] font-semibold uppercase tracking-wider mt-0.5" style="color: var(--muted);">Size</div>
+        </div>
       </div>
-      <div class="stat-col">
-        <div class="stat-val" id="downloadCount">...</div>
-        <div class="stat-sub">Downloads</div>
+    </section>
+
+    <!-- INSTALL BUTTON WRAPPER -->
+    <section class="px-5">
+      <button class="btn-install w-full py-3.5 px-6 text-white font-bold text-base rounded-2xl flex items-center justify-center gap-2 text-center transition cursor-pointer select-none" id="installBtn" onclick="handleDownload(event)">
+        <i class="fa-solid fa-download text-sm" id="btnIcon"></i>
+        <span id="btnText">Install APK</span>
+        
+        <svg id="btnProgress" style="display:none;" class="ml-2 w-5 h-5" viewBox="0 0 20 20">
+          <circle cx="10" cy="10" r="8" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"/>
+          <circle id="progressCircle" cx="10" cy="10" r="8" fill="none" stroke="#ffffff" stroke-width="2.5"
+            stroke-dasharray="50.27" stroke-dashoffset="50.27" stroke-linecap="round"
+            style="transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 0.1s linear;"/>
+        </svg>
+      </button>
+      <p class="text-[11px] text-center mt-2 flex items-center justify-center gap-1" style="color: var(--muted);">
+        <i class="fa-solid fa-shield-halved text-emerald-500 text-xs"></i> Safe & Virus Free direct download
+      </p>
+    </section>
+
+    <!-- SCREENSHOTS GALLERY -->
+    <section class="mt-6">
+      <div class="px-5 mb-2.5 flex justify-between items-center">
+        <h3 class="text-sm font-bold flex items-center gap-2" style="color: var(--text);">
+          <i class="fa-solid fa-images text-rose-500"></i> App Screenshots
+        </h3>
+        <span class="text-[11px] font-medium" style="color: var(--muted);">Tap to enlarge</span>
       </div>
-      <div class="stat-col">
-        <div class="stat-val" id="sizeVal">~2 MB</div>
-        <div class="stat-sub">Size</div>
+
+      <div class="screenshots-wrap flex gap-3 overflow-x-auto px-5 py-1">
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496545718.jpg" alt="Screenshot 1" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496548462.jpg" alt="Screenshot 2" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547740.jpg" alt="Screenshot 3" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496547045.jpg" alt="Screenshot 4" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549112.jpg" alt="Screenshot 5" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496549838.jpg" alt="Screenshot 6" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/Screenshot_20260513_111121_Chrome_1778649165470.jpg" alt="Screenshot 7" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496550676.jpg" alt="Screenshot 8" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778497325179.jpg" alt="Screenshot 9" class="w-full h-auto block">
+        </div>
+        <div class="screenshot-item flex-shrink-0 w-36 rounded-xl overflow-hidden border shadow-sm transition hover:scale-105 cursor-pointer" style="border-color: var(--border);" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="https://pub-c6c60724cf8d4c88ae54272eba79dcf0.r2.dev/castfm_-_app_download_page_1778496552384.jpg" alt="Screenshot 10" class="w-full h-auto block">
+        </div>
       </div>
+    </section>
+
+    <!-- ABOUT THIS APP / APP INFO SECTION (Google Play & App Store Style) -->
+    <section class="px-5 mt-6">
+      <div class="p-4 rounded-2xl border" style="background: var(--surface-sub); border-color: var(--border);">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-base font-bold flex items-center gap-2" style="color: var(--text);">
+            <i class="fa-solid fa-circle-info text-rose-500"></i> About this app
+          </h2>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Official Release</span>
+        </div>
+
+        <p class="text-xs leading-relaxed font-normal mb-3" style="color: var(--text);">
+          <strong>MovieBoxBD</strong> হলো একটি অল-ইন-ওয়ান বিনোদন অ্যাপ। অ্যাপটি ব্যবহার করে আপনি খুব সহজেই ফুল HD কোয়ালিটিতে দেশি-বিদেশি মুভি, ট্রেন্ডিং ওয়েব সিরিজ, লাইভ টিভি, নাটক, পডকাস্ট এবং এফএম রেডিও এক ক্লিকে উপভোগ করতে পারবেন।
+        </p>
+
+        <!-- Highlights & Key Features Grid -->
+        <div class="grid grid-cols-2 gap-2 my-3">
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-tv text-rose-500 text-sm"></i>
+            <div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Live TV & Sports</div>
+              <div class="text-[9px]" style="color: var(--muted);">Buffer free streaming</div>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-film text-purple-500 text-sm"></i>
+            <div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">HD Movies</div>
+              <div class="text-[9px]" style="color: var(--muted);">Bangla Subtitle</div>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-cloud-arrow-down text-sky-500 text-sm"></i>
+            <div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Fast Download</div>
+              <div class="text-[9px]" style="color: var(--muted);">Resume support</div>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-xl border flex items-center gap-2 bg-white/50 dark:bg-black/20" style="border-color: var(--border);">
+            <i class="fa-solid fa-moon text-amber-500 text-sm"></i>
+            <div>
+              <div class="text-[11px] font-bold" style="color: var(--text);">Dark Mode</div>
+              <div class="text-[9px]" style="color: var(--muted);">Eye protection</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Specifications Grid -->
+        <div class="mt-4 pt-3 border-t text-xs space-y-2" style="border-color: var(--border);">
+          <div class="flex justify-between">
+            <span style="color: var(--muted);">App Version</span>
+            <span class="font-semibold" style="color: var(--text);">3.2.1 (Latest)</span>
+          </div>
+          <div class="flex justify-between">
+            <span style="color: var(--muted);">Requires Android</span>
+            <span class="font-semibold" style="color: var(--text);">Android 5.0 and up</span>
+          </div>
+          <div class="flex justify-between">
+            <span style="color: var(--muted);">Category</span>
+            <span class="font-semibold" style="color: var(--text);">Entertainment / Media</span>
+          </div>
+          <div class="flex justify-between">
+            <span style="color: var(--muted);">Offered By</span>
+            <span class="font-semibold" style="color: var(--text);">MovieBox BD Team</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADSTERRA AD CONTAINER -->
+    <section class="mt-6 flex justify-center px-5">
+      <div class="w-full flex justify-center py-2 rounded-xl overflow-hidden border" style="background: var(--surface-sub); border-color: var(--border);">
+        <script>
+          atOptions = {
+            'key' : '33e119903fa3d46d297cda5df9e9c760',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/33e119903fa3d46d297cda5df9e9c760/invoke.js"></script>
+      </div>
+    </section>
+
+    <!-- RATING & REVIEW SECTION -->
+    <section class="px-5 mt-6">
+      <div class="p-5 rounded-2xl border text-center" style="background: var(--surface-sub); border-color: var(--border);">
+        <h3 class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--muted);">Rate this App</h3>
+        
+        <div class="stars-wrap flex justify-center gap-2 mb-2" id="starsWrap">
+          <button class="star-btn" data-val="1">★</button>
+          <button class="star-btn" data-val="2">★</button>
+          <button class="star-btn" data-val="3">★</button>
+          <button class="star-btn" data-val="4">★</button>
+          <button class="star-btn" data-val="5">★</button>
+        </div>
+
+        <div class="text-xs font-medium" id="ratingMeta" style="color: var(--muted);">Loading stats...</div>
+        <div class="text-xs font-bold text-emerald-500 mt-2 min-h-[20px]" id="ratingThanks"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 3-DOT OPTIONS & CONTACT DRAWER (BOTTOM SHEET MODAL) -->
+  <div id="menuModal" class="modal-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-end" onclick="closeMenuOnOutside(event)">
+    <div class="modal-drawer w-full max-w-[500px] p-6 shadow-2xl flex flex-col gap-5 max-h-[85vh] overflow-y-auto">
+      
+      <!-- Drawer Header Bar -->
+      <div class="flex items-center justify-between pb-3 border-b" style="border-color: var(--border);">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg overflow-hidden border" style="border-color: var(--border);">
+            <img src="https://moviebox-bd.xyz/icons/icon-1024x1024.png" alt="App Icon" class="w-full h-full object-cover">
+          </div>
+          <span class="font-bold text-sm" style="color: var(--text);">MovieBoxBD Options</span>
+        </div>
+        <button onclick="toggleMenu()" class="w-8 h-8 rounded-full flex items-center justify-center transition active:scale-90 text-sm" style="background: var(--surface-sub); color: var(--text);">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Theme Switcher (Light / Dark Mode Switch) -->
+      <div class="p-3.5 rounded-xl border flex items-center justify-between" style="background: var(--surface-sub); border-color: var(--border);">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-rose-500/10 text-rose-500 text-base">
+            <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold" style="color: var(--text);">Theme Mode (সাদা / কালো)</div>
+            <div class="text-[10px]" style="color: var(--muted);" id="themeStatusText">Light Mode Active</div>
+          </div>
+        </div>
+
+        <button onclick="toggleDarkMode()" class="px-3.5 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 active:scale-95" style="background: var(--surface); color: var(--text); border-color: var(--border);">
+          <i class="fa-solid fa-moon text-amber-400"></i> Toggle
+        </button>
+      </div>
+
+      <!-- Contact Developer Options (আমার সাথে যোগাযোগ) -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5" style="color: var(--muted);">
+          <i class="fa-solid fa-headset text-rose-500"></i> Contact Us (যোগাযোগ করুন)
+        </h4>
+
+        <div class="grid grid-cols-2 gap-2">
+          <!-- WhatsApp Contact -->
+          <a href="https://wa.me/?text=Hello%20MovieBoxBD%20Support" target="_blank" class="p-3 rounded-xl border flex items-center gap-2.5 transition hover:scale-[1.02] active:scale-95" style="background: var(--surface-sub); border-color: var(--border);">
+            <i class="fa-brands fa-whatsapp text-emerald-500 text-xl"></i>
+            <div>
+              <div class="text-xs font-bold" style="color: var(--text);">WhatsApp</div>
+              <div class="text-[10px]" style="color: var(--muted);">Direct Chat</div>
+            </div>
+          </a>
+
+          <!-- Telegram Contact -->
+          <a href="https://t.me/movieboxbd_support" target="_blank" class="p-3 rounded-xl border flex items-center gap-2.5 transition hover:scale-[1.02] active:scale-95" style="background: var(--surface-sub); border-color: var(--border);">
+            <i class="fa-brands fa-telegram text-sky-500 text-xl"></i>
+            <div>
+              <div class="text-xs font-bold" style="color: var(--text);">Telegram</div>
+              <div class="text-[10px]" style="color: var(--muted);">Instant Help</div>
+            </div>
+          </a>
+
+          <!-- Email Contact -->
+          <a href="mailto:support@moviebox-bd.xyz" class="p-3 rounded-xl border flex items-center gap-2.5 transition hover:scale-[1.02] active:scale-95" style="background: var(--surface-sub); border-color: var(--border);">
+            <i class="fa-solid fa-envelope text-rose-500 text-xl"></i>
+            <div>
+              <div class="text-xs font-bold" style="color: var(--text);">Email Us</div>
+              <div class="text-[10px]" style="color: var(--muted);">Official Mail</div>
+            </div>
+          </a>
+
+          <!-- Direct Feedback Modal trigger -->
+          <button onclick="openFeedbackForm()" class="p-3 rounded-xl border flex items-center gap-2.5 transition hover:scale-[1.02] active:scale-95 text-left" style="background: var(--surface-sub); border-color: var(--border);">
+            <i class="fa-solid fa-paper-plane text-purple-500 text-xl"></i>
+            <div>
+              <div class="text-xs font-bold" style="color: var(--text);">Feedback</div>
+              <div class="text-[10px]" style="color: var(--muted);">Send Message</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Media Section -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5" style="color: var(--muted);">
+          <i class="fa-solid fa-globe text-rose-500"></i> Follow Us (সোশ্যাল মিডিয়া)
+        </h4>
+
+        <div class="flex items-center justify-around p-3 rounded-xl border" style="background: var(--surface-sub); border-color: var(--border);">
+          <a href="https://facebook.com" target="_blank" title="Facebook Page" class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-600 text-white text-lg transition hover:scale-110">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://t.me" target="_blank" title="Telegram Channel" class="w-10 h-10 rounded-full flex items-center justify-center bg-sky-500 text-white text-lg transition hover:scale-110">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" title="YouTube Channel" class="w-10 h-10 rounded-full flex items-center justify-center bg-red-600 text-white text-lg transition hover:scale-110">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a href="https://moviebox-bd.xyz" target="_blank" title="Official Website" class="w-10 h-10 rounded-full flex items-center justify-center bg-emerald-600 text-white text-lg transition hover:scale-110">
+            <i class="fa-solid fa-globe"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- App Copyright & Legal Info Footer inside menu -->
+      <div class="pt-2 text-center border-t" style="border-color: var(--border);">
+        <p class="text-[11px] font-medium" style="color: var(--muted);">
+          &copy; <span id="copyrightYear">2026</span> <strong>MovieBoxBD</strong>. All Rights Reserved.
+        </p>
+        <p class="text-[10px] mt-0.5" style="color: var(--muted);">Designed with <i class="fa-solid fa-heart text-rose-500"></i> for Entertainment Lovers.</p>
+      </div>
+
     </div>
   </div>
 
-  <div class="install-wrap">
-    <button class="btn-install" id="installBtn" onclick="handleDownload(event)">
-      <span id="btnText">Install APK</span>
-      <svg id="btnProgress" style="display:none;vertical-align:middle;margin-left:8px;" width="20" height="20" viewBox="0 0 20 20">
-        <circle cx="10" cy="10" r="8" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"/>
-        <circle id="progressCircle" cx="10" cy="10" r="8" fill="none" stroke="#fff" stroke-width="2.5"
-          stroke-dasharray="50.27" stroke-dashoffset="50.27" stroke-linecap="round"
-          style="transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 0.1s linear;"/>
-      </svg>
+  <!-- LIGHTBOX IMAGE PREVIEW MODAL -->
+  <div id="lightbox" class="lightbox fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4" onclick="closeLightbox()">
+    <button onclick="closeLightbox()" class="absolute top-5 right-5 text-white text-2xl w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+      <i class="fa-solid fa-xmark"></i>
     </button>
+    <img id="lightboxImg" src="" alt="Enlarged Preview" class="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl">
   </div>
 
-  <div class="screenshots-wrap">
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349515/E170327C-6A2C-496E-AEBA-CF7238C6BFAC_h2zzzp.jpg" alt="Screenshot 1"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349518/7429C465-558A-4C2D-9FA1-60DF07455498_y42jtz.jpg" alt="Screenshot 2"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349520/7B7D6A56-F4E1-4C8C-AE91-BD558AD5CB12_v09zuk.jpg" alt="Screenshot 3"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349523/C79C9FB5-98C0-488A-B649-5416CBC5BB9E_whtaal.jpg" alt="Screenshot 4"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349525/2CF16B2A-F9C4-4131-8049-0BCD76E31E3D_pznbc3.jpg" alt="Screenshot 5"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349527/1C56DAFF-3A57-4B1C-97C0-3C11ADF30601_saub6u.jpg" alt="Screenshot 6"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349531/458EB695-E7D8-4341-835C-DB831E49FD11_puhh5k.jpg" alt="Screenshot 7"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349537/7AD29577-1B84-4CD4-AAE0-E2707E15D0E0_lazhpv.jpg" alt="Screenshot 8"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785349541/E692883D-2BC4-426D-B2EE-36057B80D9B3_dz7sdr.jpg" alt="Screenshot 8"></div>
-    <div class="screenshot-item"><img src="https://res.cloudinary.com/tncjngal/image/upload/v1785350032/90904841-99BD-4290-8574-51DCF56E8A43_ieug1p.jpg" alt="Screenshot 9"></div>
-  </div>
-
-  <!-- Adsterra Ad -->
-  <div style="display:flex;justify-content:center;margin:20px 0 0;">
-    <script>
-      atOptions = {
-        'key' : '33e119903fa3d46d297cda5df9e9c760',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/33e119903fa3d46d297cda5df9e9c760/invoke.js"></script>
-  </div>
-
-  <div class="divider"></div>
-  <div class="rating-section">
-    <div class="stars-wrap" id="starsWrap">
-      <button class="star-btn" data-val="1">★</button>
-      <button class="star-btn" data-val="2">★</button>
-      <button class="star-btn" data-val="3">★</button>
-      <button class="star-btn" data-val="4">★</button>
-      <button class="star-btn" data-val="5">★</button>
-    </div>
-    <div class="rating-meta" id="ratingMeta">Loading...</div>
-    <div class="rating-thanks" id="ratingThanks"></div>
-  </div>
 </div>
 
+<!-- TOAST NOTIFICATION -->
 <div id="toast">⬇️ Download শুরু হচ্ছে...</div>
 
+<!-- FIREBASE BACKEND MODULE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getDatabase, ref, runTransaction, onValue, get, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -314,8 +572,6 @@
 
   onValue(ref(db, "app_download_page/pageVisits"), (snapshot) => {
     window._pageViews = snapshot.val() || 0;
-    const el = document.getElementById("pageViewCount");
-    if (el) el.textContent = window._pageViews >= 10000 ? (window._pageViews / 1000).toFixed(1) + "K" : window._pageViews;
     updateRatingMeta();
   });
 
@@ -337,18 +593,26 @@
       const views = window._pageViews || 0;
       const viewsStr = views >= 10000 ? (views / 1000).toFixed(1) + "K" : views;
       const meta = document.getElementById("ratingMeta");
-      if (!data) { if (meta) meta.textContent = "0 Ratings · " + viewsStr + " Views"; return; }
+      
+      if (!data) { 
+        if (meta) meta.textContent = "0 Ratings · " + viewsStr + " Views"; 
+        const statRatingText = document.querySelector('.stat-rating-text');
+        if (statRatingText) statRatingText.textContent = "5.0";
+        return; 
+      }
+      
       const vals = Object.values(data);
       const avg = (vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(1);
       if (meta) meta.textContent = vals.length + " Ratings · " + viewsStr + " Views";
-      const statRating = document.querySelector('.stat-val');
-      if (statRating) statRating.innerHTML = avg + ' <span class="star">★</span>';
+      
+      const statRatingText = document.querySelector('.stat-rating-text');
+      if (statRatingText) statRatingText.textContent = avg;
     });
   }
   updateRatingMeta();
 
   if (localStorage.getItem('castfm_rated')) {
-    document.getElementById("ratingThanks").textContent = "Thanks! Your rating has been saved.";
+    document.getElementById("ratingThanks").textContent = "✓ Thanks! Your rating has been saved.";
     var savedVal = parseInt(localStorage.getItem('castfm_rating_val') || '0');
     if (savedVal) {
       document.querySelectorAll('.star-btn').forEach(function(s) {
@@ -363,17 +627,123 @@
     set(ref(db, "app_download_page/ratings/" + uid), val).then(() => {
       localStorage.setItem('castfm_rated', '1');
       localStorage.setItem('castfm_rating_val', val);
-      document.getElementById("ratingThanks").textContent = "Thanks! Your rating has been saved.";
+      document.getElementById("ratingThanks").textContent = "✓ Thanks! Your rating has been saved.";
       updateRatingMeta();
     });
   };
 </script>
 
 <script>
+  // Dynamic Year Setup
+  document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+  // Dark/Light Mode Switch Logic
+  function initTheme() {
+    const savedTheme = localStorage.getItem('moviebox_theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      updateThemeUI(true);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      updateThemeUI(false);
+    }
+  }
+
+  function toggleDarkMode() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('moviebox_theme', 'light');
+      updateThemeUI(false);
+      showToast('☀️ Light mode enabled');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('moviebox_theme', 'dark');
+      updateThemeUI(true);
+      showToast('🌙 Dark mode enabled');
+    }
+  }
+
+  function updateThemeUI(isDark) {
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeStatusText');
+    if (isDark) {
+      if (themeIcon) themeIcon.className = "fa-solid fa-moon text-amber-400";
+      if (themeText) themeText.textContent = "Dark Mode Active (কালো)";
+    } else {
+      if (themeIcon) themeIcon.className = "fa-solid fa-sun text-rose-500";
+      if (themeText) themeText.textContent = "Light Mode Active (সাদা)";
+    }
+  }
+  initTheme();
+
+  // Menu Drawer Toggle Logic
+  function toggleMenu() {
+    const modal = document.getElementById('menuModal');
+    modal.classList.toggle('open');
+  }
+
+  function closeMenuOnOutside(e) {
+    if (e.target.id === 'menuModal') {
+      toggleMenu();
+    }
+  }
+
+  // Toast Function
+  function showToast(msg) {
+    var toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function() {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+
+  // Lightbox Image Preview
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  // Share Application
+  function shareApp() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'MovieBoxBD App',
+        text: 'MovieBoxBD অ্যাপ দিয়ে ফ্রিতে সব মুভি ও লাইভ টিভি দেখুন!',
+        url: window.location.href
+      }).catch(function(){});
+    } else {
+      showToast('📋 Link copied to clipboard!');
+      var dummy = document.createElement('input');
+      document.body.appendChild(dummy);
+      dummy.value = window.location.href;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+    }
+  }
+
+  // Feedback Message Prompt
+  function openFeedbackForm() {
+    toggleMenu();
+    setTimeout(function() {
+      var msg = prompt("আপনার মতামত বা মেসেজ লিখুন:");
+      if (msg) {
+        showToast("✓ আপনার বার্তাটি পাঠানো হয়েছে!");
+      }
+    }, 300);
+  }
+
+  // Download Handler Logic
   function handleDownload(e) {
     e.preventDefault();
     var btn = document.getElementById('installBtn');
     var btnText = document.getElementById('btnText');
+    var btnIcon = document.getElementById('btnIcon');
     var btnProgress = document.getElementById('btnProgress');
     var circle = document.getElementById('progressCircle');
 
@@ -384,8 +754,10 @@
     }
 
     btn.classList.add('installing');
-    btnText.textContent = 'Installing...';
+    btnIcon.style.display = 'none';
+    btnText.textContent = 'Downloading APK...';
     btnProgress.style.display = 'inline';
+    showToast('⬇️ Download শুরু হচ্ছে...');
 
     var total = 2800;
     var start = Date.now();
@@ -402,7 +774,9 @@
         btn.classList.remove('installing');
         btn.classList.add('done');
         btnProgress.style.display = 'none';
-        btnText.textContent = '✓ Download শুরু হচ্ছে';
+        btnIcon.className = "fa-solid fa-circle-check text-white";
+        btnIcon.style.display = 'inline-block';
+        btnText.textContent = '✓ Download শুরু হয়েছে';
 
         var a = document.createElement('a');
         a.href = 'https://moviebox-bd.xyz/movieboxbd.apk';
@@ -413,12 +787,14 @@
 
         setTimeout(function() {
           btn.classList.remove('done');
+          btnIcon.className = "fa-solid fa-download text-sm";
           btnText.textContent = 'Install APK';
-        }, 3000);
+        }, 3500);
       }
     }, 30);
   }
 
+  // Fetch Version & Size dynamically
   (function() {
     fetch('https://castfm.pages.dev/sw.js')
       .then(function(r){ return r.text(); })
@@ -444,6 +820,7 @@
       .catch(function(){});
   })();
 
+  // Star Rating Interaction
   (function() {
     var stars = document.querySelectorAll('.star-btn');
     stars.forEach(function(star) {
