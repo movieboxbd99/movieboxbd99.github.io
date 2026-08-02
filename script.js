@@ -5326,8 +5326,8 @@ if ('serviceWorker' in navigator) {
   var _relSeeAllInit = document.getElementById('wvmRelatedSeeAll');
   if (_relSeeAllInit) _relSeeAllInit.onclick = wvmOpenRelatedCat;
   function shareApp() {
-    var url = 'https://castfm.pages.dev/app';
-    var title = 'CastFM';
+    var url = 'https://moviebox-bd.xyz/app';
+    var title = 'Movie Box BD';
     if (window.AndroidBridge && window.AndroidBridge.share) {
       window.AndroidBridge.share(title, url);
     } else if (navigator.share) {
