@@ -2845,7 +2845,7 @@ if ('serviceWorker' in navigator) {
     var track   = document.getElementById('heroBannerTrack');
     var dotsEl  = document.getElementById('heroBannerDots');
     if (!section || !track || !dotsEl) return;
-    var featured = _watchVideos.filter(function(v){ return v.featured === true && v.url && v.img; })
+    var featured = _watchVideos.filter(function(v){ return v.featured === true && v.url && (v.f_img || v.img); })
       .sort(function(a,b){ return (parseInt(b.id)||0)-(parseInt(a.id)||0); })
       .slice(0, 10);
     if (_heroBannerTimer) { clearInterval(_heroBannerTimer); _heroBannerTimer = null; }
@@ -2855,8 +2855,10 @@ if ('serviceWorker' in navigator) {
     _heroBannerIdx = 0;
     track.innerHTML = featured.map(function(v, i) {
       var key = v._key || '';
+      var bannerImg = v.f_img || v.img;
+      var fallbackImg = (v.f_img && v.img && v.f_img !== v.img) ? v.img : '';
       return '<div class="hero-banner-slide" data-hkey="' + key + '" data-hidx="' + i + '">'
-        + '<img src="' + v.img + '" alt="' + (v.title || '') + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '" onload="this.classList.add(\'loaded\')" onerror="imgErr(this)">'
+        + '<img src="' + bannerImg + '" alt="' + (v.title || '') + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '" data-fallback="' + fallbackImg + '" onload="this.classList.add(\'loaded\')" onerror="heroImgErr(this)">'
         + '<div class="hero-banner-info">'
           + '<div class="hero-banner-title">' + (v.title || 'Untitled') + '</div>'
           + '<div class="hero-banner-watch-btn"><i class="fa-solid fa-play"></i>Watch</div>'
@@ -6801,6 +6803,16 @@ if ('serviceWorker' in navigator) {
   // ── Image error fallback ──
   function imgLoad(el) { var p = el.parentElement; if (p) p.classList.add('loaded'); }
   window.imgLoad = imgLoad;
+  function heroImgErr(el) {
+    var fb = el.getAttribute('data-fallback');
+    if (fb) {
+      el.removeAttribute('data-fallback');
+      el.onerror = function() { imgErr(el); };
+      el.src = fb;
+      return;
+    }
+    imgErr(el);
+  }
   function imgErr(el) {
     el.style.display = 'none';
     var p = el.parentElement;
