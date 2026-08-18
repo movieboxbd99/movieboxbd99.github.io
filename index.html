@@ -813,44 +813,46 @@ Login
 <div id="fpTimesPlayed" style="display:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;color:var(--text);text-align:center;letter-spacing:0.03em;flex-shrink:0;margin-top:6px;"></div>
 </div>
 </div>
-<!-- Glowing Professional Tab Bar -->
-<div id="tabBar" class="glow-tab-bar">
-    <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </button>
-    
-    <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()">
-        <i class="fa-solid fa-layer-group"></i>
-        <span>Genres</span>
-    </button>
-    
-    <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()">
-        <i class="fa-solid fa-tv"></i>
-        <span>TV</span>
-    </button>
-    
-    <!-- Hidden by default as per your original code -->
-    <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
-        <i class="fa-solid fa-radio"></i>
-        <span>Radio</span>
-    </button>
-    
-    <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')">
-        <i id="podcastSvg" class="fa-solid fa-headphones"></i>
-        <span>Listen</span>
-    </button>
-    
-    <!-- Hidden by default as per your original code -->
-    <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
-        <i class="fa-regular fa-compass"></i>
-        <span>Explore</span>
-    </button>
-    
-    <button class="tab-btn" id="tabReels" onclick="switchTab('reels')">
-        <i class="fa-solid fa-clapperboard"></i>
-        <span>Reels</span>
-    </button>
+<!-- Modern Floating Tab Bar -->
+<div class="floating-nav-wrapper">
+    <nav class="modern-tab-bar" id="tabBar">
+        
+        <button class="nav-item active" id="tabWatch" onclick="switchTab('watch')">
+            <i class="fa-solid fa-house"></i>
+            <span class="nav-text">Home</span>
+        </button>
+        
+        <button class="nav-item" id="tabCategories" onclick="openBrowseCatsAllModal()">
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="nav-text">Genres</span>
+        </button>
+        
+        <button class="nav-item" id="tabTv" onclick="openLiveTvModal()">
+            <i class="fa-solid fa-tv"></i>
+            <span class="nav-text">TV</span>
+        </button>
+        
+        <button class="nav-item" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
+            <i class="fa-solid fa-radio"></i>
+            <span class="nav-text">Radio</span>
+        </button>
+        
+        <button class="nav-item" id="tabPodcast" onclick="switchTab('podcast')">
+            <i class="fa-solid fa-headphones"></i>
+            <span class="nav-text">Listen</span>
+        </button>
+        
+        <button class="nav-item" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
+            <i class="fa-regular fa-compass"></i>
+            <span class="nav-text">Explore</span>
+        </button>
+        
+        <button class="nav-item" id="tabReels" onclick="switchTab('reels')">
+            <i class="fa-solid fa-clapperboard"></i>
+            <span class="nav-text">Reels</span>
+        </button>
+
+    </nav>
 </div>
 <!-- ══ DESKTOP RIGHT NAV SIDEBAR ══ -->
 <nav id="desktopRightNav">
