@@ -5,7 +5,7 @@
     <script src="https://pl30407776.effectivecpmnetwork.com/5a/60/3b/5a603bd0db4a2900b254ca292ed758ad.js"></script>
     <script src="https://pl30407776.effectivecpmnetwork.com/5a/60/3b/5a603bd0db4a2900b254ca292ed758ad.js"></script>
     <script src="https://pl30407776.effectivecpmnetwork.com/5a/60/3b/5a603bd0db4a2900b254ca292ed758ad.js"></script>
-    <meta name="monetag" content="3802d3b5dd72a6263e8b6eb4d339dad2"/>F
+    <meta name="monetag" content="3802d3b5dd72a6263e8b6eb4d339dad2"/>
     <script src="https://5gvci.com/act/files/tag.min.js?z=11532193" data-cfasync="false" async></script>
     <script>(function(s){s.dataset.zone='11532137',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <!-- Google tag (gtag.js) -->
@@ -813,46 +813,36 @@ Login
 <div id="fpTimesPlayed" style="display:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;color:var(--text);text-align:center;letter-spacing:0.03em;flex-shrink:0;margin-top:6px;"></div>
 </div>
 </div>
-<!-- Modern Floating Tab Bar -->
-<div class="floating-nav-wrapper">
-    <nav class="modern-tab-bar" id="tabBar">
-        
-        <button class="nav-item active" id="tabWatch" onclick="switchTab('watch')">
-            <i class="fa-solid fa-house"></i>
-            <span class="nav-text">Home</span>
-        </button>
-        
-        <button class="nav-item" id="tabCategories" onclick="openBrowseCatsAllModal()">
-            <i class="fa-solid fa-layer-group"></i>
-            <span class="nav-text">Genres</span>
-        </button>
-        
-        <button class="nav-item" id="tabTv" onclick="openLiveTvModal()">
-            <i class="fa-solid fa-tv"></i>
-            <span class="nav-text">TV</span>
-        </button>
-        
-        <button class="nav-item" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
-            <i class="fa-solid fa-radio"></i>
-            <span class="nav-text">Radio</span>
-        </button>
-        
-        <button class="nav-item" id="tabPodcast" onclick="switchTab('podcast')">
-            <i class="fa-solid fa-headphones"></i>
-            <span class="nav-text">Listen</span>
-        </button>
-        
-        <button class="nav-item" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
-            <i class="fa-regular fa-compass"></i>
-            <span class="nav-text">Explore</span>
-        </button>
-        
-        <button class="nav-item" id="tabReels" onclick="switchTab('reels')">
-            <i class="fa-solid fa-clapperboard"></i>
-            <span class="nav-text">Reels</span>
-        </button>
-
-    </nav>
+<!-- Tab Bar -->
+<div id="tabBar">
+    <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')">
+        <i class="fa-regular fa-house" style="font-size:20px"></i>
+        <span>Home</span>
+    </button>
+    <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()">
+        <i class="fa-solid fa-layer-group" style="font-size:20px"></i>
+        <span>Genres</span>
+    </button>
+    <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()">
+        <i class="fa-solid fa-tv" style="font-size:20px"></i>
+        <span>TV</span>
+    </button>
+    <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
+        <i class="fa-solid fa-radio" style="font-size:20px"></i>
+        <span>Radio</span>
+    </button>
+    <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')">
+        <i id="podcastSvg" class="fa-solid fa-podcast" style="font-size:20px"></i>
+        <span>Listen</span>
+    </button>
+    <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
+        <i class="fa-solid fa-fire-flame-curved" style="font-size:20px"></i>
+        <span>Explore</span>
+    </button>
+    <button class="tab-btn" id="tabReels" onclick="switchTab('reels')">
+        <i class="fa-brands fa-youtube-shorts" style="font-size:20px"></i>
+        <span>Reels</span>
+    </button>
 </div>
 <!-- ══ DESKTOP RIGHT NAV SIDEBAR ══ -->
 <nav id="desktopRightNav">
