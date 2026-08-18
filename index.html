@@ -813,38 +813,44 @@ Login
 <div id="fpTimesPlayed" style="display:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;color:var(--text);text-align:center;letter-spacing:0.03em;flex-shrink:0;margin-top:6px;"></div>
 </div>
 </div>
-<!-- Professional Tab Bar -->
-<div class="bottom-nav-container">
-    <div id="tabBar" class="bottom-nav">
-        <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')">
-            <span class="icon-wrapper"><i class="fa-solid fa-house"></i></span>
-            <span class="tab-label">Home</span>
-        </button>
-        <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()">
-            <span class="icon-wrapper"><i class="fa-solid fa-layer-group"></i></span>
-            <span class="tab-label">Genres</span>
-        </button>
-        <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()">
-            <span class="icon-wrapper"><i class="fa-solid fa-tv"></i></span>
-            <span class="tab-label">TV</span>
-        </button>
-        <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
-            <span class="icon-wrapper"><i class="fa-solid fa-radio"></i></span>
-            <span class="tab-label">Radio</span>
-        </button>
-        <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')">
-            <span class="icon-wrapper"><i id="podcastSvg" class="fa-solid fa-headphones"></i></span>
-            <span class="tab-label">Listen</span>
-        </button>
-        <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
-            <span class="icon-wrapper"><i class="fa-regular fa-compass"></i></span>
-            <span class="tab-label">Explore</span>
-        </button>
-        <button class="tab-btn" id="tabReels" onclick="switchTab('reels')">
-            <span class="icon-wrapper"><i class="fa-solid fa-clapperboard"></i></span>
-            <span class="tab-label">Reels</span>
-        </button>
-    </div>
+<!-- Glowing Professional Tab Bar -->
+<div id="tabBar" class="glow-tab-bar">
+    <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </button>
+    
+    <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Genres</span>
+    </button>
+    
+    <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()">
+        <i class="fa-solid fa-tv"></i>
+        <span>TV</span>
+    </button>
+    
+    <!-- Hidden by default as per your original code -->
+    <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none;">
+        <i class="fa-solid fa-radio"></i>
+        <span>Radio</span>
+    </button>
+    
+    <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')">
+        <i id="podcastSvg" class="fa-solid fa-headphones"></i>
+        <span>Listen</span>
+    </button>
+    
+    <!-- Hidden by default as per your original code -->
+    <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none;">
+        <i class="fa-regular fa-compass"></i>
+        <span>Explore</span>
+    </button>
+    
+    <button class="tab-btn" id="tabReels" onclick="switchTab('reels')">
+        <i class="fa-solid fa-clapperboard"></i>
+        <span>Reels</span>
+    </button>
 </div>
 <!-- ══ DESKTOP RIGHT NAV SIDEBAR ══ -->
 <nav id="desktopRightNav">
