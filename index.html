@@ -811,42 +811,42 @@ Login
 <div id="fpTimesPlayed" style="display:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;color:var(--text);text-align:center;letter-spacing:0.03em;flex-shrink:0;margin-top:6px;"></div>
 </div>
 </div>
-<!-- Tab Bar with Direct Inline Design -->
-<div id="tabBar" style="position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 500px; height: 62px; background: #1e1e24; border-radius: 30px; display: flex; align-items: center; justify-content: space-around; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 9999; padding: 0 8px;">
-    
-    <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); border: none; outline: none; color: #ffffff; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-regular fa-house" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:600;">Home</span>
+<!-- Normal Standard Bottom Tab Bar -->
+<div id="tabBar" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 56px; background-color: #ffffff; display: flex; align-items: center; justify-content: space-around; border-top: 1px solid #e5e7eb; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); z-index: 9999; margin: 0; padding: 0;">
+
+    <button class="tab-btn active" id="tabWatch" onclick="switchTab('watch')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #2563eb; cursor: pointer;">
+        <i class="fa-regular fa-house" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Home</span>
     </button>
 
-    <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-solid fa-layer-group" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">Genres</span>
+    <button class="tab-btn" id="tabCategories" onclick="openBrowseCatsAllModal()" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i class="fa-solid fa-layer-group" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Genres</span>
     </button>
 
-    <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-solid fa-tv" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">TV</span>
+    <button class="tab-btn" id="tabTv" onclick="openLiveTvModal()" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i class="fa-solid fa-tv" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">TV</span>
     </button>
 
-    <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none; flex: 1; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-solid fa-radio" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">Radio</span>
+    <button class="tab-btn" id="tabRadio" onclick="openAllStationsModal()" style="display:none; flex: 1; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i class="fa-solid fa-radio" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Radio</span>
     </button>
 
-    <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i id="podcastSvg" class="fa-solid fa-podcast" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">Listen</span>
+    <button class="tab-btn" id="tabPodcast" onclick="switchTab('podcast')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i id="podcastSvg" class="fa-solid fa-podcast" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Listen</span>
     </button>
 
-    <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none; flex: 1; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-solid fa-fire-flame-curved" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">Explore</span>
+    <button class="tab-btn" id="tabExplore" onclick="switchTab('explore')" style="display:none; flex: 1; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i class="fa-solid fa-fire-flame-curved" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Explore</span>
     </button>
 
-    <button class="tab-btn" id="tabReels" onclick="switchTab('reels')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; color: #a0a0ab; cursor: pointer; padding: 6px 0; border-radius: 20px;">
-        <i class="fa-brands fa-youtube-shorts" style="font-size:18px; margin-bottom:2px;"></i>
-        <span style="font-size:10px; font-weight:500;">Reels</span>
+    <button class="tab-btn" id="tabReels" onclick="switchTab('reels')" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; outline: none; padding: 4px 0; color: #6b7280; cursor: pointer;">
+        <i class="fa-brands fa-youtube-shorts" style="font-size:18px; margin-bottom: 2px;"></i>
+        <span style="font-size:11px; font-weight:500; line-height: 1;">Reels</span>
     </button>
 
 </div>
