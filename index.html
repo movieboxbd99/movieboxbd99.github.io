@@ -1037,6 +1037,9 @@ Login
 
 <!-- POPUP AD BOX -->
 <div id="popupAdBox">
+  <!-- Dynamic Status/Message Banner -->
+  <div id="dynamicAdStatus" class="dynamic-status-banner">Special Offer Unlocked!</div>
+
   <!-- Top-Right Close Button (1st Close) -->
   <button id="popupAdCloseBtn" class="top-close-btn" onclick="closePopupAd()" aria-label="Close ad">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
@@ -1062,7 +1065,7 @@ Login
   <!-- Footer Actions: Open Button & 2nd Close Button -->
   <div class="popup-footer-actions">
     <button id="popupAdOpenBtn" onclick="openPopupAdAction()">
-      <span>Explore Now</span>
+      <span id="openBtnText">Explore Now</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
         <line x1="7" y1="17" x2="17" y2="7"/>
         <polyline points="7 7 17 7 17 17"/>
@@ -1121,6 +1124,22 @@ Login
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ডায়নামিক স্ট্যাটাস টেক্সট ব্যানার */
+  .dynamic-status-banner {
+    width: 100%;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
   }
 
   /* কর্নারের প্রথম ক্লোজ বাটন (Icon Close) */
@@ -1224,26 +1243,68 @@ Login
 </style>
 
 <script>
+  // ডাইনামিক লেখার লিস্ট (প্রতিবার আসার সময় বা ইন্টারভেলে পরিবর্তন হবে)
+  const dynamicMessages = [
+    "🔥 Limited Time Deal Available!",
+    "⚡ Sponsored Recommendation for You",
+    "✨ Tap Open to Claim Reward",
+    "🚀 Discover Something New Today"
+  ];
+
+  const openButtonLabels = [
+    "Explore Now",
+    "Get Offer",
+    "Visit Sponsor",
+    "Learn More"
+  ];
+
+  let messageIndex = 0;
+  let textInterval = null;
+
   // ২৫ সেকেন্ড (২৫০০০ মিলিসেকেন্ড) পর পপআপ দেখানোর লজিক
   setTimeout(() => {
     document.getElementById('popupAdOverlay').classList.add('active');
     document.getElementById('popupAdBox').classList.add('active');
+
+    // পপআপ ওপেন হওয়ার পর প্রতি ৫ সেকেন্ড পর পর লেখা বদলাবে
+    updateDynamicTexts();
+    textInterval = setInterval(rotateTexts, 5000);
   }, 25000);
+
+  function rotateTexts() {
+    messageIndex = (messageIndex + 1) % dynamicMessages.length;
+    updateDynamicTexts();
+  }
+
+  function updateDynamicTexts() {
+    const statusEl = document.getElementById('dynamicAdStatus');
+    const openBtnTextEl = document.getElementById('openBtnText');
+    if (statusEl) statusEl.innerText = dynamicMessages[messageIndex];
+    if (openBtnTextEl) openBtnTextEl.innerText = openButtonLabels[messageIndex % openButtonLabels.length];
+  }
 
   // পপআপ ক্লোজ ফাংশন (উভয় ক্লোজ বাটন ও ওভারলে এটি ব্যবহার করবে)
   function closePopupAd() {
+    if (textInterval) clearInterval(textInterval);
     document.getElementById('popupAdOverlay').classList.remove('active');
     document.getElementById('popupAdBox').classList.remove('active');
   }
 
-  // ওপেন বাটন অ্যাকশন ফাংশন (আপনার লিংক বা পেজ রিডাইরেক্ট এখানে দিন)
+  // ওপেন বাটন অ্যাকশন ফাংশন
   function openPopupAdAction() {
-    // উদাহরণস্বরূপ নতুন ট্যাবে লিংক ওপেন করার কোড (আপনার প্রয়োজন মতো পরিবর্তন করুন)
+    // উদাহরণস্বরূপ ট্রিগার (আপনার কাঙ্ক্ষিত লিংক বা লজিক এখানে দিন)
     // window.open('https://example.com', '_blank');
     
-    // অথবা ওপেন করার পর পপআপ বন্ধ করতে চাইলে নিচের লাইনটি আনকমেন্ট করতে পারেন:
-    // closePopupAd();
-    alert('Explore button clicked!');
+    // ওপেন বাটনে ক্লিক করলে ভিন্ন কিছু দেখানো বা ক্লোজ করা
+    const statusEl = document.getElementById('dynamicAdStatus');
+    if (statusEl) {
+      statusEl.innerText = "Redirecting to partner page...";
+      statusEl.style.color = "#4ade80";
+    }
+    
+    setTimeout(() => {
+      closePopupAd();
+    }, 1200);
   }
 </script>
 </div>
