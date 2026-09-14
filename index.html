@@ -1032,121 +1032,186 @@ Login
 </div>
 <div id="pollBody" style="flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;"></div>
 </div>
-<!-- POPUP AD CSS (Professional Look) -->
+ <!-- MODERN & PROFESSIONAL POPUP AD -->
 <style>
-    /* ডার্ক ওভারলে ব্যাকগ্রাউন্ড */
+    /* ওভারলে بیکগ্রাউন্ড */
     #popupAdOverlay {
-        display: none; /* ডিফল্টভাবে হাইড থাকবে */
+        display: none;
         position: fixed;
         top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(3px);
-        z-index: 9998;
+        width: 100vw; height: 100vh;
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 99998;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
-    /* মূল পপআপ বক্স */
+    /* মূল পপআপ কার্ড */
     #popupAdBox {
-        display: none; /* ডিফল্টভাবে হাইড থাকবে */
+        display: none;
         position: fixed;
         top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -45%) scale(0.95);
         background: #ffffff;
-        width: 320px;
-        border-radius: 12px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        z-index: 9999;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        width: 340px;
+        max-width: 90vw;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+        z-index: 99999;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         overflow: hidden;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 1px solid rgba(226, 232, 240, 0.8);
     }
 
-    /* পপআপ হেডার ও কাউন্টডাউন */
+    /* পপআপ শো হওয়ার সময়ের অ্যানিমেশন ক্লাস */
+    #popupAdOverlay.active { opacity: 1; }
+    #popupAdBox.active {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* প্রোগ্রেস বার (কাউন্টডাউনের ভিজ্যুয়াল ইফেক্ট) */
+    .ad-progress-container {
+        width: 100%;
+        height: 4px;
+        background: #e2e8f0;
+        position: relative;
+    }
+    .ad-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #3b82f6);
+        width: 100%;
+        transition: width 1s linear;
+    }
+
+    /* হেডার সেকশন */
     .popup-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 15px;
-        background: #f8f9fa;
-        border-bottom: 1px solid #eeeeee;
+        padding: 12px 18px;
+        background: #f8fafc;
+        border-bottom: 1px solid #f1f5f9;
     }
-    
-    .timer-text {
-        font-size: 13px;
-        color: #e74c3c;
+
+    .timer-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
         font-weight: 600;
+        color: #475569;
+        background: #edf2f7;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    .timer-badge span {
+        color: #ef4444;
+        font-weight: 700;
+        min-width: 18px;
     }
 
     /* উপরের ডানদিকের ক্লোজ বাটন */
     #popupAdCloseBtn {
-        background: none;
+        background: #f1f5f9;
         border: none;
         cursor: pointer;
-        color: #7f8c8d;
-        padding: 0;
+        color: #64748b;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
     }
     #popupAdCloseBtn:hover {
-        color: #c0392b;
+        background: #fee2e2;
+        color: #ef4444;
     }
 
-    /* বিজ্ঞাপনের স্লট */
+    /* অ্যাড বডি */
     #popupAdSlot {
         padding: 15px;
-        min-height: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
         background: #ffffff;
+        min-height: 250px;
     }
 
-    /* নিচের ফুটার এবং বাটন */
+    /* ফুটার ও বাটন সেকশন */
     .popup-footer {
         display: flex;
-        justify-content: space-between;
-        padding: 12px 15px;
-        background: #f8f9fa;
-        border-top: 1px solid #eeeeee;
+        gap: 10px;
+        padding: 14px 18px;
+        background: #f8fafc;
+        border-top: 1px solid #f1f5f9;
     }
 
-    .btn-bottom {
-        padding: 8px 20px;
+    .btn-action {
+        flex: 1;
+        padding: 10px 16px;
         border: none;
-        border-radius: 6px;
+        border-radius: 10px;
         cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: 0.2s ease-in-out;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .btn-close {
-        background: #ffeaa7;
-        color: #d63031;
+    .btn-close-ad {
+        background: #ffffff;
+        color: #64748b;
+        border: 1px solid #cbd5e1;
     }
-    .btn-close:hover { background: #fadc7a; }
+    .btn-close-ad:hover {
+        background: #f1f5f9;
+        color: #334155;
+    }
 
-    .btn-open {
-        background: #0984e3;
-        color: white;
+    .btn-open-ad {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
-    .btn-open:hover { background: #076ebc; }
+    .btn-open-ad:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        transform: translateY(-1px);
+    }
 </style>
 
-<!-- POPUP AD HTML -->
+<!-- POPUP AD HTML STRUCTURE -->
 <div id="popupAdOverlay" onclick="closePopupAd()"></div>
 <div id="popupAdBox">
-    <!-- Header with Timer and Top Close Button -->
+    <!-- Progress Bar -->
+    <div class="ad-progress-container">
+        <div class="ad-progress-bar" id="adProgressBar"></div>
+    </div>
+
+    <!-- Header -->
     <div class="popup-header">
-        <span class="timer-text">Closing in <span id="adTimer">25</span>s</span>
+        <div class="timer-badge">
+            ⏱️ Ad closes in <span id="adTimer">25</span>s
+        </div>
         <button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14">
                 <line x1="18" y1="6" x2="6" y2="18"/>
                 <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
         </button>
     </div>
 
-    <!-- Ad Slot -->
+    <!-- Ad Content -->
     <div id="popupAdSlot">
         <script>
           atOptions = {
@@ -1162,45 +1227,70 @@ Login
 
     <!-- Footer Buttons -->
     <div class="popup-footer">
-        <button class="btn-bottom btn-close" onclick="closePopupAd()">Close</button>
-        <!-- Open বাটনে আপনার কাঙ্ক্ষিত লিংক দিতে পারেন -->
-        <button class="btn-bottom btn-open" onclick="window.open('#YOUR_LINK_HERE', '_blank')">Open</button>
+        <button class="btn-action btn-close-ad" onclick="closePopupAd()">Close</button>
+        <!-- Replace #YOUR_LINK_HERE with your target URL -->
+        <button class="btn-action btn-open-ad" onclick="window.open('#YOUR_LINK_HERE', '_blank')">Open Now</button>
     </div>
 </div>
 
-<!-- POPUP AD JAVASCRIPT -->
+<!-- POPUP AD JAVASCRIPT LOGIC -->
 <script>
     let adCountdownInterval;
-    let timeLeft = 25; // ২৫ সেকেন্ডের কাউন্টডাউন
+    const totalTime = 25; // ২৫ সেকেন্ডের কাউন্টডাউন
+    let timeLeft = totalTime;
 
-    // ৩০ সেকেন্ড (30000ms) পর পপআপ শো করবে
+    // ৩০ সেকেন্ড (30000ms) পর বিজ্ঞাপন দেখাবে
     setTimeout(function() {
         showPopupAd();
     }, 30000); 
 
     function showPopupAd() {
-        document.getElementById('popupAdOverlay').style.display = 'block';
-        document.getElementById('popupAdBox').style.display = 'block';
+        const overlay = document.getElementById('popupAdOverlay');
+        const box = document.getElementById('popupAdBox');
         
-        // কাউন্টডাউন শুরু
-        timeLeft = 25;
+        overlay.style.display = 'block';
+        box.style.display = 'block';
+
+        // অ্যানিমেশন অ্যাক্টিভ করা
+        setTimeout(() => {
+            overlay.classList.add('active');
+            box.classList.add('active');
+        }, 10);
+
+        // টাইমার সেটআপ
+        timeLeft = totalTime;
         document.getElementById('adTimer').innerText = timeLeft;
-        
+        document.getElementById('adProgressBar').style.width = '100%';
+
         adCountdownInterval = setInterval(function() {
             timeLeft--;
             document.getElementById('adTimer').innerText = timeLeft;
             
-            // সময় শেষ হলে অটোমেটিক বন্ধ হয়ে যাবে
+            // প্রোগ্রেস বার আপডেট
+            let progressPercent = (timeLeft / totalTime) * 100;
+            document.getElementById('adProgressBar').style.width = progressPercent + '%';
+
+            // ২৫ সেকেন্ড শেষ হলে বন্ধ করা
             if(timeLeft <= 0) {
                 closePopupAd();
             }
-        }, 1000); // প্রতি ১ সেকেন্ডে আপডেট হবে
+        }, 1000);
     }
 
     function closePopupAd() {
-        document.getElementById('popupAdOverlay').style.display = 'none';
-        document.getElementById('popupAdBox').style.display = 'none';
-        clearInterval(adCountdownInterval); // টাইমার বন্ধ করা
+        const overlay = document.getElementById('popupAdOverlay');
+        const box = document.getElementById('popupAdBox');
+
+        overlay.classList.remove('active');
+        box.classList.remove('active');
+
+        // অ্যানিমেশন শেষ হলে হাইড করা
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            box.style.display = 'none';
+        }, 300);
+
+        clearInterval(adCountdownInterval);
     }
 </script>
 </div>
