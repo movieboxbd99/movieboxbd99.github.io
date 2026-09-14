@@ -1032,264 +1032,176 @@ Login
 </div>
 <div id="pollBody" style="flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;"></div>
 </div>
-<!-- POPUP AD OVERLAY -->
-<div id="popupAdOverlay" onclick="window.closePopupAd()"></div>
-
-<!-- POPUP AD BOX -->
-<div id="popupAdBox">
-  <!-- Minimal Header with Sponsored & Live Countdown Timer -->
-  <div class="popup-top-header">
-    <span class="sponsored-label">Sponsored</span>
-    <span id="autoCloseBadge" class="auto-close-timer">25s</span>
-  </div>
-
-  <!-- Top-Right Close Button (1st Close) -->
-  <button id="popupAdCloseBtn" class="top-close-btn" type="button" onclick="window.closePopupAd()" aria-label="Close ad">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
-
-  <!-- Ad Slot Container (300x250) -->
-  <div id="popupAdSlot">
-    <script>
-      atOptions = {
-        'key' : 'df93619c4cda58c7e51da5923e05060d',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
-  </div>
-
-  <!-- Footer Actions: Open Button & 2nd Close Button -->
-  <div class="popup-footer-actions">
-    <button id="popupAdOpenBtn" type="button" onclick="window.openPopupAdAction()">
-      <span>Explore Now</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
-        <line x1="7" y1="17" x2="17" y2="7"/>
-        <polyline points="7 7 17 7 17 17"/>
-      </svg>
-    </button>
-    <button id="popupAdBottomCloseBtn" class="bottom-close-btn" type="button" onclick="window.closePopupAd()">
-      Close Ad
-    </button>
-  </div>
-</div>
-
+<!-- POPUP AD CSS (Professional Look) -->
 <style>
-  #popupAdOverlay {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(3, 7, 18, 0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    z-index: 9998;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
-    pointer-events: none;
-  }
+    /* ডার্ক ওভারলে ব্যাকগ্রাউন্ড */
+    #popupAdOverlay {
+        display: none; /* ডিফল্টভাবে হাইড থাকবে */
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(3px);
+        z-index: 9998;
+    }
 
-  #popupAdOverlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
+    /* মূল পপআপ বক্স */
+    #popupAdBox {
+        display: none; /* ডিফল্টভাবে হাইড থাকবে */
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        width: 320px;
+        border-radius: 12px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        z-index: 9999;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+    }
 
-  #popupAdBox {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -46%) scale(0.88);
-    background: #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 24px;
-    box-shadow: 
-      0 30px 60px -15px rgba(0, 0, 0, 0.7),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    padding: 14px;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    /* পপআপ হেডার ও কাউন্টডাউন */
+    .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #eeeeee;
+    }
+    
+    .timer-text {
+        font-size: 13px;
+        color: #e74c3c;
+        font-weight: 600;
+    }
 
-  #popupAdBox.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
-  }
+    /* উপরের ডানদিকের ক্লোজ বাটন */
+    #popupAdCloseBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #7f8c8d;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+    #popupAdCloseBtn:hover {
+        color: #c0392b;
+    }
 
-  .popup-top-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    padding: 0 4px;
-  }
+    /* বিজ্ঞাপনের স্লট */
+    #popupAdSlot {
+        padding: 15px;
+        min-height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+    }
 
-  .sponsored-label {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #64748b;
-  }
+    /* নিচের ফুটার এবং বাটন */
+    .popup-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border-top: 1px solid #eeeeee;
+    }
 
-  .auto-close-timer {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    color: #f87171;
-    background: rgba(239, 68, 68, 0.12);
-    padding: 3px 8px;
-    border-radius: 6px;
-  }
+    .btn-bottom {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: 0.2s ease-in-out;
+    }
 
-  #popupAdCloseBtn.top-close-btn {
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    background: #1e293b;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: #cbd5e1;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 10000;
-  }
+    .btn-close {
+        background: #ffeaa7;
+        color: #d63031;
+    }
+    .btn-close:hover { background: #fadc7a; }
 
-  #popupAdCloseBtn.top-close-btn:hover {
-    background: #ef4444;
-    border-color: #ef4444;
-    color: #ffffff;
-    transform: rotate(90deg) scale(1.1);
-  }
-
-  #popupAdSlot {
-    border-radius: 14px;
-    overflow: hidden;
-    background: #ffffff;
-    line-height: 0;
-  }
-
-  .popup-footer-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 12px;
-    gap: 10px;
-  }
-
-  #popupAdOpenBtn {
-    flex: 1;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 10px 16px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-    transition: all 0.25s ease;
-  }
-
-  #popupAdOpenBtn:hover {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.55);
-  }
-
-  #popupAdBottomCloseBtn.bottom-close-btn {
-    background: rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 10px 14px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-
-  #popupAdBottomCloseBtn.bottom-close-btn:hover {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    border-color: rgba(239, 68, 68, 0.3);
-  }
+    .btn-open {
+        background: #0984e3;
+        color: white;
+    }
+    .btn-open:hover { background: #076ebc; }
 </style>
 
+<!-- POPUP AD HTML -->
+<div id="popupAdOverlay" onclick="closePopupAd()"></div>
+<div id="popupAdBox">
+    <!-- Header with Timer and Top Close Button -->
+    <div class="popup-header">
+        <span class="timer-text">Closing in <span id="adTimer">25</span>s</span>
+        <button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Ad Slot -->
+    <div id="popupAdSlot">
+        <script>
+          atOptions = {
+            'key' : 'df93619c4cda58c7e51da5923e05060d',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="popup-footer">
+        <button class="btn-bottom btn-close" onclick="closePopupAd()">Close</button>
+        <!-- Open বাটনে আপনার কাঙ্ক্ষিত লিংক দিতে পারেন -->
+        <button class="btn-bottom btn-open" onclick="window.open('#YOUR_LINK_HERE', '_blank')">Open</button>
+    </div>
+</div>
+
+<!-- POPUP AD JAVASCRIPT -->
 <script>
-  (function() {
-    let autoCloseTimer = null;
-    let remainingTime = 25;
+    let adCountdownInterval;
+    let timeLeft = 25; // ২৫ সেকেন্ডের কাউন্টডাউন
 
-    window.closePopupAd = function() {
-      if (autoCloseTimer) { clearInterval(autoCloseTimer); autoCloseTimer = null; }
-      const overlay = document.getElementById('popupAdOverlay');
-      const box = document.getElementById('popupAdBox');
-      if (overlay) overlay.classList.remove('active');
-      if (box) box.classList.remove('active');
-    };
-
-    window.openPopupAdAction = function() {
-      // window.open('https://example.com', '_blank');
-      window.closePopupAd();
-    };
-
-    function startAutoCloseCountdown() {
-      remainingTime = 25;
-      const badge = document.getElementById('autoCloseBadge');
-      if (badge) badge.innerText = `${remainingTime}s`;
-
-      if (autoCloseTimer) clearInterval(autoCloseTimer);
-      autoCloseTimer = setInterval(() => {
-        remainingTime--;
-        if (badge) badge.innerText = `${remainingTime}s`;
-        if (remainingTime <= 0) {
-          window.closePopupAd();
-        }
-      }, 1000);
-    }
+    // ৩০ সেকেন্ড (30000ms) পর পপআপ শো করবে
+    setTimeout(function() {
+        showPopupAd();
+    }, 30000); 
 
     function showPopupAd() {
-      const overlay = document.getElementById('popupAdOverlay');
-      const box = document.getElementById('popupAdBox');
-      if (overlay) overlay.classList.add('active');
-      if (box) box.classList.add('active');
-      startAutoCloseCountdown();
+        document.getElementById('popupAdOverlay').style.display = 'block';
+        document.getElementById('popupAdBox').style.display = 'block';
+        
+        // কাউন্টডাউন শুরু
+        timeLeft = 25;
+        document.getElementById('adTimer').innerText = timeLeft;
+        
+        adCountdownInterval = setInterval(function() {
+            timeLeft--;
+            document.getElementById('adTimer').innerText = timeLeft;
+            
+            // সময় শেষ হলে অটোমেটিক বন্ধ হয়ে যাবে
+            if(timeLeft <= 0) {
+                closePopupAd();
+            }
+        }, 1000); // প্রতি ১ সেকেন্ডে আপডেট হবে
     }
 
-    // ৩০ সেকেন্ড পর পপআপ আসবে (টেস্ট করতে চাইলে ৩০০০০ এর বদলে ৩০০০ দিতে পারেন)
-    setTimeout(showPopupAd, 30000);
-  })();
+    function closePopupAd() {
+        document.getElementById('popupAdOverlay').style.display = 'none';
+        document.getElementById('popupAdBox').style.display = 'none';
+        clearInterval(adCountdownInterval); // টাইমার বন্ধ করা
+    }
 </script>
 </div>
 <script>var CURRENT_VERSION = '1.0';</script>
