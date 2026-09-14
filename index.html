@@ -1035,22 +1035,20 @@ Login
 <!-- POPUP AD OVERLAY -->
 <div id="popupAdOverlay" onclick="closePopupAd()"></div>
 
-<!-- POPUP AD BOX (Apple/Linear Style Dialog) -->
-<div id="popupAdBox" role="dialog" aria-modal="true" aria-label="Advertisement">
-  <div class="popup-header">
-    <div class="popup-title-group">
-      <span class="popup-dot"></span>
-      <span class="popup-label">Sponsored Content</span>
-    </div>
+<!-- POPUP AD BOX -->
+<div id="popupAdBox">
+  <!-- Top Header / Brand or Ad Indicator -->
+  <div class="popup-ad-header">
+    <span class="ad-label">Advertisement</span>
     <button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
         <line x1="18" y1="6" x2="6" y2="18"/>
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
-      <span>Close</span>
     </button>
   </div>
-  
+
+  <!-- Ad Slot Container -->
   <div id="popupAdSlot">
     <script>
       atOptions = {
@@ -1063,24 +1061,23 @@ Login
     </script>
     <script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
   </div>
-
-  <div class="popup-footer-bar">
-    <span class="popup-subtext">Support free content by viewing this partner ad</span>
-  </div>
 </div>
 
 <style>
-  /* কনটেক্সচুয়াল ডার্ক ব্যাকড্রপ */
+  /* আল্ট্রা-ক্লিন ডিপ ডার্ক ওভারলে */
   #popupAdOverlay {
     position: fixed;
-    inset: 0;
-    background: rgba(9, 9, 11, 0.7);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(9, 9, 11, 0.72);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
   }
 
   #popupAdOverlay.active {
@@ -1088,25 +1085,26 @@ Login
     visibility: visible;
   }
 
-  /* লিনিয়ার/অ্যাপল স্টাইল ক্লিন মডার্ন কার্ড */
+  /* ফ্লোটিং মডার্ন কার্ড (Floating UI Style) */
   #popupAdBox {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -46%) scale(0.95);
-    width: 334px;
+    transform: translate(-50%, -44%) scale(0.9);
     background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 20px;
     box-shadow: 
-      0 20.4px 40.8px rgba(0, 0, 0, 0.08), 
-      0 0.8px 3.6px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
+      0 20px 40px -15px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(0, 0, 0, 0.06);
+    padding: 10px 10px 14px 10px;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    box-sizing: border-box;
   }
 
   #popupAdBox.active {
@@ -1115,106 +1113,57 @@ Login
     transform: translate(-50%, -50%) scale(1);
   }
 
-  /* হেডার সেকশন */
-  .popup-header {
+  /* টপ হেডার বার (অ্যাড লেবেল ও ক্লোজ বাটন এর পজিশন ক্লিন রাখার জন্য) */
+  .popup-ad-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
-    background: #fafafa;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 2px 6px 8px 6px;
   }
 
-  .popup-title-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .popup-dot {
-    width: 6px;
-    height: 6px;
-    background-color: #64748b;
-    border-radius: 50%;
-  }
-
-  .popup-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: #475569;
-    letter-spacing: -0.01em;
-  }
-
-  /* টেক্সট + আইকন কম্বাইনড ক্লোজ বাটন */
-  #popupAdCloseBtn {
-    background: #f1f5f9;
-    border: none;
-    color: #334155;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 8px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  #popupAdCloseBtn:hover {
-    background: #e2e8f0;
-    color: #0f172a;
-  }
-
-  #popupAdCloseBtn:active {
-    transform: scale(0.96);
-  }
-
-  /* অ্যাড স্লট */
-  #popupAdSlot {
-    padding: 12px;
-    display: flex;
-    justify-content: center;
-    background: #ffffff;
-    line-height: 0;
-  }
-
-  /* ফুটার ডিসক্লেইমার বার */
-  .popup-footer-bar {
-    padding: 6px 14px;
-    background: #fafafa;
-    border-top: 1px solid #f1f5f9;
-    text-align: center;
-  }
-
-  .popup-subtext {
+  .ad-label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
     color: #94a3b8;
   }
 
-  /* ডার্ক মোড অটোমেটিক এডাপ্টেশন */
-  @media (prefers-color-scheme: dark) {
-    #popupAdBox {
-      background: #18181b;
-      border-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    }
-    .popup-header, .popup-footer-bar {
-      background: #1f1f23;
-      border-color: rgba(255, 255, 255, 0.06);
-    }
-    .popup-label { color: #a1a1aa; }
-    .popup-dot { background-color: #71717a; }
-    #popupAdCloseBtn {
-      background: #27272a;
-      color: #e4e4e7;
-    }
-    #popupAdCloseBtn:hover {
-      background: #3f3f46;
-      color: #ffffff;
-    }
-    #popupAdSlot { background: #18181b; }
-    .popup-subtext { color: #71717a; }
+  /* হাই-এন্ড মিনিমাল ক্লোজ বাটন (কার্ভড সার্কেল উইথ ফিডব্যাক) */
+  #popupAdCloseBtn {
+    background: #f1f5f9;
+    border: none;
+    color: #64748b;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #popupAdCloseBtn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+    transform: scale(1.1);
+  }
+
+  #popupAdCloseBtn:active {
+    transform: scale(0.92);
+  }
+
+  /* অ্যাড স্লট কন্টেইনার */
+  #popupAdSlot {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
   }
 </style>
 
