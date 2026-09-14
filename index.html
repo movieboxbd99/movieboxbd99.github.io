@@ -1033,18 +1033,18 @@ Login
 <div id="pollBody" style="flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;"></div>
 </div>
 <!-- POPUP AD OVERLAY -->
-<div id="popupAdOverlay"></div>
+<div id="popupAdOverlay" onclick="window.closePopupAd()"></div>
 
 <!-- POPUP AD BOX -->
 <div id="popupAdBox">
-  <!-- Top Header with Dynamic Status & Auto-Close Timer -->
-  <div class="popup-top-bar">
-    <div id="dynamicAdStatus" class="dynamic-status-banner">✨ Special Offer Unlocked!</div>
-    <div id="autoCloseBadge" class="auto-close-timer">Auto-close: 25s</div>
+  <!-- Minimal Header with Sponsored & Live Countdown Timer -->
+  <div class="popup-top-header">
+    <span class="sponsored-label">Sponsored</span>
+    <span id="autoCloseBadge" class="auto-close-timer">25s</span>
   </div>
 
   <!-- Top-Right Close Button (1st Close) -->
-  <button id="popupAdCloseBtn" class="top-close-btn" type="button" aria-label="Close ad">
+  <button id="popupAdCloseBtn" class="top-close-btn" type="button" onclick="window.closePopupAd()" aria-label="Close ad">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
       <line x1="18" y1="6" x2="6" y2="18"/>
       <line x1="6" y1="6" x2="18" y2="18"/>
@@ -1067,14 +1067,14 @@ Login
 
   <!-- Footer Actions: Open Button & 2nd Close Button -->
   <div class="popup-footer-actions">
-    <button id="popupAdOpenBtn" type="button">
-      <span id="openBtnText">Explore Now</span>
+    <button id="popupAdOpenBtn" type="button" onclick="window.openPopupAdAction()">
+      <span>Explore Now</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
         <line x1="7" y1="17" x2="17" y2="7"/>
         <polyline points="7 7 17 7 17 17"/>
       </svg>
     </button>
-    <button id="popupAdBottomCloseBtn" class="bottom-close-btn" type="button">
+    <button id="popupAdBottomCloseBtn" class="bottom-close-btn" type="button" onclick="window.closePopupAd()">
       Close Ad
     </button>
   </div>
@@ -1131,25 +1131,22 @@ Login
     transform: translate(-50%, -50%) scale(1);
   }
 
-  .popup-top-bar {
+  .popup-top-header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    padding: 0 4px;
   }
 
-  .dynamic-status-banner {
-    flex: 1;
+  .sponsored-label {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    color: #38bdf8;
-    background: rgba(56, 189, 248, 0.1);
-    padding: 5px 8px;
-    border-radius: 8px;
-    transition: all 0.35s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #64748b;
   }
 
   .auto-close-timer {
@@ -1158,9 +1155,8 @@ Login
     font-weight: 600;
     color: #f87171;
     background: rgba(239, 68, 68, 0.12);
-    padding: 5px 8px;
-    border-radius: 8px;
-    white-space: nowrap;
+    padding: 3px 8px;
+    border-radius: 6px;
   }
 
   #popupAdCloseBtn.top-close-btn {
@@ -1252,27 +1248,10 @@ Login
 
 <script>
   (function() {
-    const dynamicMessages = [
-      "🔥 Limited Time Deal Available!",
-      "⚡ Sponsored Recommendation for You",
-      "✨ Tap Open to Claim Reward",
-      "🚀 Discover Something New Today"
-    ];
-
-    const openButtonLabels = [
-      "Explore Now",
-      "Get Offer",
-      "Visit Sponsor",
-      "Learn More"
-    ];
-
-    let messageIndex = 0;
-    let textInterval = null;
     let autoCloseTimer = null;
     let remainingTime = 25;
 
     window.closePopupAd = function() {
-      if (textInterval) { clearInterval(textInterval); textInterval = null; }
       if (autoCloseTimer) { clearInterval(autoCloseTimer); autoCloseTimer = null; }
       const overlay = document.getElementById('popupAdOverlay');
       const box = document.getElementById('popupAdBox');
@@ -1281,41 +1260,19 @@ Login
     };
 
     window.openPopupAdAction = function() {
-      const statusEl = document.getElementById('dynamicAdStatus');
-      if (statusEl) {
-        statusEl.innerText = "🚀 Redirecting to destination...";
-        statusEl.style.color = "#4ade80";
-      }
       // window.open('https://example.com', '_blank');
-      setTimeout(() => {
-        window.closePopupAd();
-      }, 1200);
+      window.closePopupAd();
     };
-
-    function updateDynamicTexts() {
-      const statusEl = document.getElementById('dynamicAdStatus');
-      const openBtnTextEl = document.getElementById('openBtnText');
-      if (statusEl) {
-        statusEl.style.opacity = 0;
-        setTimeout(() => {
-          statusEl.innerText = dynamicMessages[messageIndex];
-          statusEl.style.opacity = 1;
-        }, 150);
-      }
-      if (openBtnTextEl) {
-        openBtnTextEl.innerText = openButtonLabels[messageIndex % openButtonLabels.length];
-      }
-    }
 
     function startAutoCloseCountdown() {
       remainingTime = 25;
       const badge = document.getElementById('autoCloseBadge');
-      if (badge) badge.innerText = `Auto-close: ${remainingTime}s`;
+      if (badge) badge.innerText = `${remainingTime}s`;
 
       if (autoCloseTimer) clearInterval(autoCloseTimer);
       autoCloseTimer = setInterval(() => {
         remainingTime--;
-        if (badge) badge.innerText = `Auto-close: ${remainingTime}s`;
+        if (badge) badge.innerText = `${remainingTime}s`;
         if (remainingTime <= 0) {
           window.closePopupAd();
         }
@@ -1323,39 +1280,11 @@ Login
     }
 
     function showPopupAd() {
-      messageIndex = Math.floor(Math.random() * dynamicMessages.length);
-      updateDynamicTexts();
-
       const overlay = document.getElementById('popupAdOverlay');
       const box = document.getElementById('popupAdBox');
       if (overlay) overlay.classList.add('active');
       if (box) box.classList.add('active');
-
       startAutoCloseCountdown();
-
-      if (textInterval) clearInterval(textInterval);
-      textInterval = setInterval(() => {
-        messageIndex = (messageIndex + 1) % dynamicMessages.length;
-        updateDynamicTexts();
-      }, 4000);
-    }
-
-    function initListeners() {
-      const topClose = document.getElementById('popupAdCloseBtn');
-      const bottomClose = document.getElementById('popupAdBottomCloseBtn');
-      const openBtn = document.getElementById('popupAdOpenBtn');
-      const overlay = document.getElementById('popupAdOverlay');
-
-      if (topClose) topClose.onclick = window.closePopupAd;
-      if (bottomClose) bottomClose.onclick = window.closePopupAd;
-      if (openBtn) openBtn.onclick = window.openPopupAdAction;
-      if (overlay) overlay.onclick = window.closePopupAd;
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initListeners);
-    } else {
-      initListeners();
     }
 
     // ৩০ সেকেন্ড পর পপআপ আসবে (টেস্ট করতে চাইলে ৩০০০০ এর বদলে ৩০০০ দিতে পারেন)
