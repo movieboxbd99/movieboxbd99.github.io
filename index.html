@@ -1035,6 +1035,11 @@ Login
 <!-- POPUP AD CONTAINER -->
 <div id="popupAdOverlay"></div>
 <div id="popupAdBox">
+    <!-- Top Progress Bar (Visual Timer) -->
+    <div class="pop-progress-container">
+        <div id="popupProgressBar"></div>
+    </div>
+
     <!-- Top Right Close Button -->
     <button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
@@ -1043,15 +1048,20 @@ Login
         </svg>
     </button>
 
-    <!-- Ad Title / Header -->
+    <!-- Ad Header & Redesigned Timer Chip -->
     <div class="pop-ad-header">
         <div class="ad-badge">
             <span class="live-dot"></span>
             Sponsored
         </div>
-        <div id="popupTimer">
-            <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span id="timerText">Closing in 25s</span>
+        
+        <!-- NEW TIMER CHIP DESIGN -->
+        <div class="timer-chip">
+            <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="9"/>
+                <polyline points="12 7 12 12 15 14"/>
+            </svg>
+            <span id="timerNumber">25</span><span class="timer-unit">s</span>
         </div>
     </div>
 
@@ -1081,7 +1091,7 @@ Login
 
 <!-- STYLES (CSS) -->
 <style>
-/* Background Overlay with Blur */
+/* Background Overlay */
 #popupAdOverlay {
     display: none;
     position: fixed;
@@ -1094,30 +1104,31 @@ Login
     -webkit-backdrop-filter: blur(8px);
     z-index: 99998;
     opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s ease;
 }
 
-/* Main Popup Box */
+/* Main Popup Card */
 #popupAdBox {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -45%) scale(0.9);
+    transform: translate(-50%, -45%) scale(0.92);
     width: 90%;
     max-width: 340px;
     background: #ffffff;
     border-radius: 20px;
-    padding: 16px;
-    box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    padding: 18px 16px 16px 16px;
+    box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
     z-index: 99999;
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* Active Animation States */
+/* Display Active States */
 #popupAdOverlay.show {
     display: block;
     opacity: 1;
@@ -1128,13 +1139,30 @@ Login
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Top Right Close Circle Button */
+/* TOP PROGRESS BAR (Visual Countdown Timer) */
+.pop-progress-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #fee2e2;
+}
+#popupProgressBar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #ef4444, #b91c1c);
+    border-radius: 0 2px 2px 0;
+    transition: width 1s linear;
+}
+
+/* Top Right Close Button */
 #popupAdCloseBtn {
     position: absolute;
-    top: 12px;
+    top: 14px;
     right: 12px;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: #fff1f2;
     border: none;
     border-radius: 50%;
@@ -1152,7 +1180,7 @@ Login
     transform: rotate(90deg);
 }
 
-/* Header & Timer Styling */
+/* Header Alignment */
 .pop-ad-header {
     display: flex;
     justify-content: space-between;
@@ -1181,21 +1209,37 @@ Login
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
     animation: pulse-dot 1.5s infinite;
 }
-#popupTimer {
-    display: flex;
+
+/* NEW DIGITAL TIMER CHIP DESIGN */
+.timer-chip {
+    display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 12px;
-    color: #64748b;
-    font-weight: 600;
+    background: #1e293b;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 .timer-icon {
     width: 14px;
     height: 14px;
     color: #ef4444;
+    animation: spin-pulse 2s infinite ease-in-out;
+}
+#timerNumber {
+    color: #f8fafc;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+}
+.timer-unit {
+    color: #ef4444;
+    font-size: 11px;
 }
 
-/* Ad Frame Slot Container */
+/* Ad Frame Container */
 #popupAdSlot {
     width: 300px;
     height: 250px;
@@ -1209,7 +1253,7 @@ Login
     border: 1px solid #f1f5f9;
 }
 
-/* Bottom Action Buttons */
+/* Bottom Action Buttons (Left: Open | Right: Close) */
 .pop-ad-footer {
     display: flex;
     gap: 10px;
@@ -1232,7 +1276,7 @@ Login
     box-sizing: border-box;
 }
 
-/* OPEN BUTTON (LEFT SIDE - Vibrant Red Gradient) */
+/* OPEN BUTTON (LEFT SIDE - Red Gradient) */
 .btn-ad-open {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: #ffffff;
@@ -1244,7 +1288,7 @@ Login
     transform: translateY(-1px);
 }
 
-/* CLOSE BUTTON (RIGHT SIDE - Soft Light Red) */
+/* CLOSE BUTTON (RIGHT SIDE - Light Red) */
 .btn-ad-close {
     background: #fee2e2;
     color: #b91c1c;
@@ -1256,27 +1300,19 @@ Login
 
 /* Keyframe Animations */
 @keyframes pulse-dot {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-    }
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
-    }
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-    }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 </style>
 
 <!-- SCRIPTS (JAVASCRIPT) -->
 <script>
 let countdownTimer;
-let remainingTime = 25; // ২৫ সেকেন্ড কাউন্টডাউন
+let totalTime = 25; // মোট ২৫ সেকেন্ড স্থায়ী হবে
+let remainingTime = totalTime;
 
-// ৩০ সেকেন্ড পর বিজ্ঞাপনি পপআপ শো করবে
+// ৩০ সেকেন্ড পর বিজ্ঞাপনি পপআপ স্ক্রিনে আসবে
 setTimeout(function() {
     showPopupAd();
 }, 30000); // 30000 ms = 30 seconds
@@ -1284,25 +1320,34 @@ setTimeout(function() {
 function showPopupAd() {
     const overlay = document.getElementById('popupAdOverlay');
     const box = document.getElementById('popupAdBox');
-    const timerText = document.getElementById('timerText');
+    const timerNumber = document.getElementById('timerNumber');
+    const progressBar = document.getElementById('popupProgressBar');
     
-    // পপআপ ওপেন করার সময় টাইমার রিসেট করে ইনস্ট্যান্ট দেখানো
-    remainingTime = 25;
-    if (timerText) {
-        timerText.innerText = `Closing in ${remainingTime}s`;
-    }
+    // ১. পপআপ দৃশ্যমান হওয়ার সাথে সাথেই টাইমার এবং প্রোগ্রেস বার আপডেট
+    remainingTime = totalTime;
+    if (timerNumber) timerNumber.innerText = remainingTime;
+    if (progressBar) progressBar.style.width = '100%';
 
+    // পপআপ শো করা
     overlay.classList.add('show');
     box.classList.add('show');
 
-    // পপআপ শো হওয়ার সাথে সাথেই টাইমার শুরু
+    // ২. ইনস্ট্যান্ট (তাত্ক্ষণিক) টাইমার স্টার্ট
     countdownTimer = setInterval(function() {
         remainingTime--;
         
-        if (timerText) {
-            timerText.innerText = `Closing in ${remainingTime}s`;
+        // টাইমার টেক্সট আপডেট
+        if (timerNumber) {
+            timerNumber.innerText = remainingTime;
+        }
+
+        // প্রোগ্রেস বার কমবে
+        if (progressBar) {
+            let percentage = (remainingTime / totalTime) * 100;
+            progressBar.style.width = percentage + '%';
         }
         
+        // টাইমার শেষ হলে স্বয়ংক্রিয় বন্ধ
         if (remainingTime <= 0) {
             closePopupAd();
         }
@@ -1316,7 +1361,7 @@ function closePopupAd() {
     overlay.classList.remove('show');
     box.classList.remove('show');
     
-    // কাউন্টডাউন টাইমার থামানো
+    // টাইমার ক্লিয়ার করা
     clearInterval(countdownTimer);
 }
 </script>
