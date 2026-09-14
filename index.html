@@ -1032,13 +1032,13 @@ Login
 </div>
 <div id="pollBody" style="flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;"></div>
 </div>
-<!-- POPUP AD OVERLAY -->
+ <!-- POPUP AD OVERLAY -->
 <div id="popupAdOverlay" onclick="closePopupAd()"></div>
 
 <!-- POPUP AD BOX -->
 <div id="popupAdBox">
   <!-- Dynamic Status/Message Banner -->
-  <div id="dynamicAdStatus" class="dynamic-status-banner">Special Offer Unlocked!</div>
+  <div id="dynamicAdStatus" class="dynamic-status-banner">✨ Special Offer Unlocked!</div>
 
   <!-- Top-Right Close Button (1st Close) -->
   <button id="popupAdCloseBtn" class="top-close-btn" onclick="closePopupAd()" aria-label="Close ad">
@@ -1084,7 +1084,7 @@ Login
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(3, 7, 18, 0.76);
+    background: rgba(3, 7, 18, 0.78);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     z-index: 9998;
@@ -1126,7 +1126,7 @@ Login
     transform: translate(-50%, -50%) scale(1);
   }
 
-  /* ডায়নামিক স্ট্যাটাস টেক্সট ব্যানার */
+  /* ডাইনামিক স্ট্যাটাস টেক্সট ব্যানার */
   .dynamic-status-banner {
     width: 100%;
     text-align: center;
@@ -1135,11 +1135,11 @@ Login
     font-weight: 600;
     color: #38bdf8;
     background: rgba(56, 189, 248, 0.1);
-    padding: 5px 10px;
-    border-radius: 8px;
+    padding: 6px 10px;
+    border-radius: 10px;
     margin-bottom: 10px;
     letter-spacing: 0.3px;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
   }
 
   /* কর্নারের প্রথম ক্লোজ বাটন (Icon Close) */
@@ -1263,48 +1263,61 @@ Login
 
   // ২৫ সেকেন্ড (২৫০০০ মিলিসেকেন্ড) পর পপআপ দেখানোর লজিক
   setTimeout(() => {
+    // প্রতিবার খোলার সময় রেন্ডম বা সিকোয়েন্সিয়াল লেখা সেট করা
+    messageIndex = Math.floor(Math.random() * dynamicMessages.length);
+    updateDynamicTexts();
+
     document.getElementById('popupAdOverlay').classList.add('active');
     document.getElementById('popupAdBox').classList.add('active');
 
-    // পপআপ ওপেন হওয়ার পর প্রতি ৫ সেকেন্ড পর পর লেখা বদলাবে
-    updateDynamicTexts();
-    textInterval = setInterval(rotateTexts, 5000);
+    // পপআপ ওপেন থাকা অবস্থায় প্রতি ৪ সেকেন্ড পরপর লেখা পরিবর্তন হবে
+    if (textInterval) clearInterval(textInterval);
+    textInterval = setInterval(() => {
+      messageIndex = (messageIndex + 1) % dynamicMessages.length;
+      updateDynamicTexts();
+    }, 4000);
   }, 25000);
-
-  function rotateTexts() {
-    messageIndex = (messageIndex + 1) % dynamicMessages.length;
-    updateDynamicTexts();
-  }
 
   function updateDynamicTexts() {
     const statusEl = document.getElementById('dynamicAdStatus');
     const openBtnTextEl = document.getElementById('openBtnText');
-    if (statusEl) statusEl.innerText = dynamicMessages[messageIndex];
-    if (openBtnTextEl) openBtnTextEl.innerText = openButtonLabels[messageIndex % openButtonLabels.length];
+    if (statusEl) {
+      statusEl.style.opacity = 0;
+      setTimeout(() => {
+        statusEl.innerText = dynamicMessages[messageIndex];
+        statusEl.style.opacity = 1;
+      }, 150);
+    }
+    if (openBtnTextEl) {
+      openBtnTextEl.innerText = openButtonLabels[messageIndex % openButtonLabels.length];
+    }
   }
 
   // পপআপ ক্লোজ ফাংশন (উভয় ক্লোজ বাটন ও ওভারলে এটি ব্যবহার করবে)
   function closePopupAd() {
-    if (textInterval) clearInterval(textInterval);
+    if (textInterval) {
+      clearInterval(textInterval);
+      textInterval = null;
+    }
     document.getElementById('popupAdOverlay').classList.remove('active');
     document.getElementById('popupAdBox').classList.remove('active');
   }
 
   // ওপেন বাটন অ্যাকশন ফাংশন
   function openPopupAdAction() {
-    // উদাহরণস্বরূপ ট্রিগার (আপনার কাঙ্ক্ষিত লিংক বা লজিক এখানে দিন)
-    // window.open('https://example.com', '_blank');
-    
-    // ওপেন বাটনে ক্লিক করলে ভিন্ন কিছু দেখানো বা ক্লোজ করা
     const statusEl = document.getElementById('dynamicAdStatus');
     if (statusEl) {
-      statusEl.innerText = "Redirecting to partner page...";
+      statusEl.innerText = "🚀 Redirecting to destination...";
       statusEl.style.color = "#4ade80";
     }
     
+    // লিংক ওপেন করার উদাহরণ (আপনার কাঙ্ক্ষিত URL এখানে দিন)
+    // window.open('https://example.com', '_blank');
+
+    // ১.৫ সেকেন্ড পর পপআপ বন্ধ করা
     setTimeout(() => {
       closePopupAd();
-    }, 1200);
+    }, 1500);
   }
 </script>
 </div>
