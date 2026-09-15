@@ -1107,7 +1107,7 @@ Login
     transition: opacity 0.4s ease;
 }
 
-/* Main Popup Card with Entry Animation */
+/* Main Popup Card */
 #popupAdBox {
     display: none;
     position: fixed;
@@ -1157,7 +1157,7 @@ Login
     transition: width 1s linear;
 }
 
-/* Top Right Close Button Animation */
+/* Top Right Close Button */
 #popupAdCloseBtn {
     position: absolute;
     top: 14px;
@@ -1212,7 +1212,7 @@ Login
     animation: pulse-dot 1.5s infinite;
 }
 
-/* DIGITAL TIMER CHIP WITH PULSE & TICK ANIMATION */
+/* DIGITAL TIMER CHIP */
 .timer-chip {
     display: inline-flex;
     align-items: center;
@@ -1256,7 +1256,7 @@ Login
     border: 1px solid #f1f5f9;
 }
 
-/* Bottom Action Buttons Styling & Animations */
+/* Bottom Action Buttons */
 .pop-ad-footer {
     display: flex;
     gap: 10px;
@@ -1277,11 +1277,9 @@ Login
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
     box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
 }
 
-/* OPEN BUTTON (ANIMATED RED GRADIENT) */
+/* OPEN BUTTON */
 .btn-ad-open {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: #ffffff;
@@ -1293,9 +1291,6 @@ Login
     box-shadow: 0 6px 18px rgba(220, 38, 38, 0.55);
     transform: translateY(-2px) scale(1.02);
 }
-.btn-ad-open:active {
-    transform: translateY(0) scale(0.98);
-}
 .btn-ad-open .arrow-icon {
     transition: transform 0.3s ease;
 }
@@ -1303,7 +1298,7 @@ Login
     transform: translateX(4px);
 }
 
-/* CLOSE BUTTON (ANIMATED LIGHT RED) */
+/* CLOSE BUTTON */
 .btn-ad-close {
     background: #fee2e2;
     color: #b91c1c;
@@ -1312,35 +1307,27 @@ Login
     background: #fecaca;
     color: #991b1b;
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
-}
-.btn-ad-close:active {
-    transform: translateY(0) scale(0.98);
 }
 
-/* ALL KEYFRAME ANIMATIONS */
+/* KEYFRAME ANIMATIONS */
 @keyframes popup-bounce {
     0% { opacity: 0; transform: translate(-50%, -45%) scale(0.8); }
     70% { transform: translate(-50%, -52%) scale(1.03); }
     100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-
 @keyframes pulse-dot {
     0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
     70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
-
 @keyframes spin-tick {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 @keyframes chip-glow {
     0% { box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2); }
     100% { box-shadow: 0 2px 12px rgba(239, 68, 68, 0.5); }
 }
-
 @keyframes btn-pulse {
     0% { box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35); }
     50% { box-shadow: 0 4px 20px rgba(220, 38, 38, 0.6); }
@@ -1351,13 +1338,13 @@ Login
 <!-- SCRIPTS (JAVASCRIPT) -->
 <script>
 let countdownTimer;
-let totalTime = 15; // ১৫ সেকেন্ড স্থায়ী হবে
+let totalTime = 15; // স্ক্রিনে ১৫ সেকেন্ড থাকবে
 let remainingTime = totalTime;
 
-// ৩০ সেকেন্ড পর বিজ্ঞাপনি পপআপ স্ক্রিনে আসবে
+// পেজ ওপেন হওয়ার ঠিক ৩০ সেকেন্ড (30000 ms) পর পপআপ আসবে
 setTimeout(function() {
     showPopupAd();
-}, 30000); // 30000 ms = 30 seconds
+}, 30000); 
 
 function showPopupAd() {
     const overlay = document.getElementById('popupAdOverlay');
@@ -1365,7 +1352,6 @@ function showPopupAd() {
     const timerNumber = document.getElementById('timerNumber');
     const progressBar = document.getElementById('popupProgressBar');
     
-    // ইনস্ট্যান্ট ১৫ সেকেন্ড থেকে শুরু
     remainingTime = totalTime;
     if (timerNumber) timerNumber.innerText = remainingTime;
     if (progressBar) progressBar.style.width = '100%';
@@ -1374,7 +1360,7 @@ function showPopupAd() {
     overlay.classList.add('show');
     box.classList.add('show');
 
-    // সাথে সাথে টাইমার স্টার্ট
+    // পপআপ শো করার সাথে সাথেই ১৫ সেকেন্ডের টাইমার কাউন্টডাউন শুরু
     countdownTimer = setInterval(function() {
         remainingTime--;
         
