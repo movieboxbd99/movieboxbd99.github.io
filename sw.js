@@ -1,4 +1,4 @@
-const CACHE = 'Moviebox-bd-v7.7.1';
+const CACHE = 'Moviebox-bd-v7.7.2';
 const ASSETS = [
   '/',
   './style.css',
