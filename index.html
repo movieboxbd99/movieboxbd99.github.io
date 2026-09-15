@@ -1040,7 +1040,7 @@ Login
         <div id="popupProgressBar"></div>
     </div>
 
-    <!-- Animated Top Right Close Button -->
+    <!-- Top Right Close Button -->
     <button id="popupAdCloseBtn" onclick="closePopupAd()" aria-label="Close ad">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
             <line x1="18" y1="6" x2="6" y2="18"/>
@@ -1055,7 +1055,6 @@ Login
             Sponsored
         </div>
         
-        <!-- ANIMATED DIGITAL TIMER CHIP -->
         <div class="timer-chip">
             <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <circle cx="12" cy="12" r="9"/>
@@ -1065,21 +1064,10 @@ Login
         </div>
     </div>
 
-    <!-- Ad Body Slot -->
-    <div id="popupAdSlot">
-        <script>
-          atOptions = {
-            'key' : 'df93619c4cda58c7e51da5923e05060d',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js"></script>
-    </div>
+    <!-- Ad Body Slot (Dynamic Injection) -->
+    <div id="popupAdSlot"></div>
 
-    <!-- Bottom Animated Buttons (Left: Open | Right: Close) -->
+    <!-- Bottom Action Buttons (Left: Open | Right: Close) -->
     <div class="pop-ad-footer">
         <a href="#" id="adOpenLink" class="btn-ad-open" target="_blank" onclick="closePopupAd()">
             <span>Open</span>
@@ -1091,7 +1079,7 @@ Login
 
 <!-- STYLES (CSS) -->
 <style>
-/* Background Overlay */
+/* Overlay Backdrop */
 #popupAdOverlay {
     display: none;
     position: fixed;
@@ -1107,7 +1095,7 @@ Login
     transition: opacity 0.4s ease;
 }
 
-/* Main Popup Card */
+/* Main Popup Box */
 #popupAdBox {
     display: none;
     position: fixed;
@@ -1128,7 +1116,7 @@ Login
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* Display Active States */
+/* Display States */
 #popupAdOverlay.show {
     display: block;
     opacity: 1;
@@ -1157,7 +1145,7 @@ Login
     transition: width 1s linear;
 }
 
-/* Top Right Close Button */
+/* Top Right Close Circle Button */
 #popupAdCloseBtn {
     position: absolute;
     top: 14px;
@@ -1256,7 +1244,7 @@ Login
     border: 1px solid #f1f5f9;
 }
 
-/* Bottom Action Buttons */
+/* Bottom Buttons */
 .pop-ad-footer {
     display: flex;
     gap: 10px;
@@ -1309,7 +1297,7 @@ Login
     transform: translateY(-2px) scale(1.02);
 }
 
-/* KEYFRAME ANIMATIONS */
+/* ANIMATIONS */
 @keyframes popup-bounce {
     0% { opacity: 0; transform: translate(-50%, -45%) scale(0.8); }
     70% { transform: translate(-50%, -52%) scale(1.03); }
@@ -1338,13 +1326,38 @@ Login
 <!-- SCRIPTS (JAVASCRIPT) -->
 <script>
 let countdownTimer;
-let totalTime = 15; // স্ক্রিনে ১৫ সেকেন্ড থাকবে
-let remainingTime = totalTime;
+let totalTime = 15; // পপআপ ১৫ সেকেন্ড স্ক্রিনে থাকবে
 
-// পেজ ওপেন হওয়ার ঠিক ৩০ সেকেন্ড (30000 ms) পর পপআপ আসবে
+// ==========================================
+// সময় কন্ট্রোল (কাঙ্ক্ষিত সময় পরিবর্তন করুন):
+// ৩০ সেকেন্ডের জন্য: 30000
+// ৪০ সেকেন্ডের জন্য: 40000
+// ==========================================
+let showDelayTime = 30000; // ৩০ সেকেন্ড সেট করা হলো
+
 setTimeout(function() {
+    loadAndShowAd();
+}, showDelayTime);
+
+function loadAndShowAd() {
+    const slot = document.getElementById('popupAdSlot');
+    
+    // ১. নির্ধারিত সময় পার হওয়ার পরই এড স্ক্রিপ্ট ইনজেক্ট করা হবে
+    window.atOptions = {
+        'key' : 'df93619c4cda58c7e51da5923e05060d',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+    };
+
+    const adScript = document.createElement('script');
+    adScript.src = "https://www.highperformanceformat.com/df93619c4cda58c7e51da5923e05060d/invoke.js";
+    slot.appendChild(adScript);
+
+    // ২. পপআপ কার্ড ডিসপ্লে করা
     showPopupAd();
-}, 30000); 
+}
 
 function showPopupAd() {
     const overlay = document.getElementById('popupAdOverlay');
@@ -1352,15 +1365,14 @@ function showPopupAd() {
     const timerNumber = document.getElementById('timerNumber');
     const progressBar = document.getElementById('popupProgressBar');
     
-    remainingTime = totalTime;
+    let remainingTime = totalTime;
     if (timerNumber) timerNumber.innerText = remainingTime;
     if (progressBar) progressBar.style.width = '100%';
 
-    // পপআপ শো করা
     overlay.classList.add('show');
     box.classList.add('show');
 
-    // পপআপ শো করার সাথে সাথেই ১৫ সেকেন্ডের টাইমার কাউন্টডাউন শুরু
+    // ৩. ইনস্ট্যান্ট কাউন্টডাউন ও প্রোগ্রেস বার স্টার্ট
     countdownTimer = setInterval(function() {
         remainingTime--;
         
