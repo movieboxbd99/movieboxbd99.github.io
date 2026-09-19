@@ -44,47 +44,55 @@
 <noscript><link rel="stylesheet" href="style.css" /></noscript>
 <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <style>
-    /* ── UI ও লেআউট আধুনিকায়ন (রিসপনসিভ ও স্মুথ ডিজাইন) ── */
+    /* ── UI ও লেআউট রিফাইন্ড স্টাইল (Modern Glassmorphism & Smooth Finish) ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #f8f9fa;
-      --text: #121216;
-      --muted: #71717a;
-      --accent: #6366f1;
+      --bg: #f9f9f6;
       --surface: #ffffff;
-      --surface2: #f1f3f5;
-      --pl-grad1: #e0e7ff;
-      --pl-grad2: #ede9fe;
-      --pl-grad3: #f5f3ff;
-      --pl-grad4: #ffffff;
-      --pl-track: rgba(99,102,241,0.12);
+      --surface2: #f1f1eb;
+      --text: #121216;
+      --muted: #787872;
+      --accent: #FF3B30;
+      --accent-glow: rgba(255, 59, 48, 0.25);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow-smooth: 0 10px 30px rgba(0, 0, 0, 0.05);
+      --pl-grad1: #fff5f5;
+      --pl-grad2: #ffe3e0;
+      --pl-grad3: #ffc2bd;
+      --pl-grad4: #fa9b93;
+      --pl-track: rgba(0,0,0,0.06);
     }
     [data-theme="dark"] {
-      --bg: #09090b;
-      --text: #f4f4f5;
-      --muted: #a1a1aa;
-      --accent: #818cf8;
-      --surface: #18181b;
-      --surface2: #27272a;
-      --pl-grad1: #09090b;
-      --pl-grad2: #18181b;
-      --pl-grad3: #27272a;
-      --pl-grad4: #3f3f46;
-      --pl-track: rgba(129,140,248,0.2);
+      --bg: #0b0b0e;
+      --surface: #141418;
+      --surface2: #1e1e24;
+      --text: #f4f4f6;
+      --muted: #888890;
+      --accent: #FF453A;
+      --accent-glow: rgba(255, 69, 58, 0.3);
+      --shadow-smooth: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --pl-grad1: #0b0b0e;
+      --pl-grad2: #181012;
+      --pl-grad3: #2c1415;
+      --pl-grad4: #451515;
+      --pl-track: rgba(255,255,255,0.08);
     }
-    html, body { background: var(--bg); font-family: 'Plus Jakarta Sans', 'Noto Sans Bengali', sans-serif; }
+    html, body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', 'Noto Sans Bengali', sans-serif; -webkit-font-smoothing: antialiased; }
+    
     #pageLoader {
       position: fixed; inset: 0; z-index: 9999;
       background: linear-gradient(
         135deg,
         var(--pl-grad1) 0%,
-        var(--pl-grad2) 50%,
+        var(--pl-grad2) 40%,
+        var(--pl-grad3) 75%,
         var(--pl-grad4) 100%
       );
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 16px;
-      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
       overflow: hidden;
     }
@@ -109,12 +117,12 @@
       font-size: 2rem; font-weight: 800;
       color: var(--text); letter-spacing: -0.04em;
       position: relative; z-index: 1;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     .pl-logo span:not(.pl-dot) { color: var(--accent); }
     .pl-version {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.75rem; color: var(--muted);
+      font-size: 0.7rem; color: var(--muted);
       letter-spacing: 0.1em;
       position: absolute; bottom: 24px; right: 24px;
       opacity: 0.7;
@@ -138,57 +146,58 @@
       height: 100%;
       border-radius: 99px;
       background: var(--accent);
-      box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+      box-shadow: 0 0 12px var(--accent-glow);
       animation: plScroll 1.1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     }
     @keyframes plScroll {
       0%   { left: -50%; }
       100% { left: 100%; }
     }
-    
-    /* ইউজার ইন্টারফেস এবং উইজেট গ্লাস মর্ফিজম ও মডার্ন টাচ */
-    header {
-      background: color-mix(in srgb, var(--bg) 85%, transparent) !important;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--surface2);
-    }
+
+    /* আধুনিক ট্যাব বার ও নেভিগেশন লেআউট ফিনিশিং */
     #tabBar {
-      background: color-mix(in srgb, var(--bg) 90%, transparent) !important;
-      backdrop-filter: blur(16px);
-      border-top: 1px solid var(--surface2);
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: color-mix(in srgb, var(--surface) 85%, transparent);
+      border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+      box-shadow: var(--shadow-smooth);
+      border-radius: 24px 24px 0 0;
+      padding-bottom: env(safe-area-inset-bottom);
     }
+    
     .tab-btn {
-      transition: all 0.25s ease;
-      border-radius: 12px;
-      margin: 4px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .tab-btn.active {
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
-      color: var(--accent);
+      color: var(--accent) !important;
+      transform: translateY(-2px);
     }
-    #sidebar {
-      background: var(--surface) !important;
-      box-shadow: 10px 0 30px rgba(0,0,0,0.1);
-      border-right: 1px solid var(--surface2);
+
+    /* হেডার ও কার্ড ডিজাইন রিফাইনমেন্ট */
+    header {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: color-mix(in srgb, var(--surface) 80%, transparent) !important;
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
     }
-    .header-icon-btn, .google-login-btn, .s-row.can-hover {
-      border-radius: 12px;
-      transition: all 0.2s ease;
+
+    .header-icon-btn, .theme-pill, .wvm-action-btn {
+      border-radius: var(--radius-md);
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
-    .s-row.can-hover:hover {
-      background-color: var(--surface2);
+    .header-icon-btn:active, .theme-pill:active {
+      transform: scale(0.92);
     }
   </style>
 </head>
 <body>
-<!-- Page Load Overlay -->
+<!-- Page Load Overlay — placed first so it paints before anything else -->
 <div id="pageLoader">
 <!-- Logo -->
 <div class="pl-logo">Mixo<span> BD</span></div>
 <!-- Loading animation -->
 <div class="pl-loader"></div>
-<!-- Version -->
+<!-- Version — bottom right -->
 <div class="pl-version" id="plVersion">v—</div>
 </div>
 <div id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -500,7 +509,7 @@ Login
 <div id="watchEmpty" style="display:none;padding:48px 16px;text-align:center;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;">
 <i class="fa-solid fa-video" style="font-size:2rem;margin-bottom:12px;display:block;opacity:0.4;"></i>
 <div style="font-size:0.85rem;">No Videos</div>
-</div
+</div>
 <div style="display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;">
 <!-- Top Picks Section -->
 <div id="editorsChoiceSection" style="display:none;">
