@@ -44,62 +44,51 @@
 <noscript><link rel="stylesheet" href="style.css" /></noscript>
 <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <style>
-    /* ── UI ও লেআউট রিফাইন্ড স্টাইল (Modern Glassmorphism & Smooth Finish) ── */
+    /* ── CRITICAL: page loader — inlined so it paints instantly,
+       before the (large) external stylesheet has finished loading ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #f9f9f6;
-      --surface: #ffffff;
-      --surface2: #f1f1eb;
-      --text: #121216;
-      --muted: #787872;
-      --accent: #FF3B30;
-      --accent-glow: rgba(255, 59, 48, 0.25);
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --shadow-smooth: 0 10px 30px rgba(0, 0, 0, 0.05);
-      --pl-grad1: #fff5f5;
-      --pl-grad2: #ffe3e0;
-      --pl-grad3: #ffc2bd;
-      --pl-grad4: #fa9b93;
-      --pl-track: rgba(0,0,0,0.06);
+      --bg: #f7f7f5;
+      --text: #17171b;
+      --muted: #8c8c86;
+      --accent: #EF4444;
+      --pl-grad1: #fdf1ef;
+      --pl-grad2: #fbe2de;
+      --pl-grad3: #f7c9c2;
+      --pl-grad4: #f2a89e;
+      --pl-track: rgba(0,0,0,0.08);
     }
     [data-theme="dark"] {
-      --bg: #0b0b0e;
-      --surface: #141418;
-      --surface2: #1e1e24;
-      --text: #f4f4f6;
-      --muted: #888890;
-      --accent: #FF453A;
-      --accent-glow: rgba(255, 69, 58, 0.3);
-      --shadow-smooth: 0 10px 30px rgba(0, 0, 0, 0.4);
-      --pl-grad1: #0b0b0e;
-      --pl-grad2: #181012;
-      --pl-grad3: #2c1415;
-      --pl-grad4: #451515;
-      --pl-track: rgba(255,255,255,0.08);
+      --bg: #0f0f13;
+      --text: #f0f0ee;
+      --muted: #6e6e68;
+      --pl-grad1: #17171b;
+      --pl-grad2: #201415;
+      --pl-grad3: #351814;
+      --pl-grad4: #4b1512;
+      --pl-track: rgba(100,160,220,0.2);
     }
-    html, body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', 'Noto Sans Bengali', sans-serif; -webkit-font-smoothing: antialiased; }
-    
+    html, body { background: var(--bg); }
     #pageLoader {
       position: fixed; inset: 0; z-index: 9999;
       background: linear-gradient(
-        135deg,
+        180deg,
         var(--pl-grad1) 0%,
-        var(--pl-grad2) 40%,
-        var(--pl-grad3) 75%,
+        var(--pl-grad2) 30%,
+        var(--pl-grad3) 65%,
         var(--pl-grad4) 100%
       );
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 16px;
-      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
+      gap: 14px;
+      transition: opacity 0.4s ease;
       overflow: hidden;
     }
     #pageLoader.hide {
       opacity: 0;
       pointer-events: none;
     }
+    /* header/tabBar hide while loader is active */
     body:has(#pageLoader:not(.hide):not([style*="display:none"])) header,
     body:has(#pageLoader:not(.hide):not([style*="display:none"])) #miniPlayer {
       display: none !important;
@@ -114,26 +103,26 @@
     }
     .pl-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 2rem; font-weight: 800;
-      color: var(--text); letter-spacing: -0.04em;
+      font-size: 1.6rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.03em;
       position: relative; z-index: 1;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     .pl-logo span:not(.pl-dot) { color: var(--accent); }
     .pl-version {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.7rem; color: var(--muted);
-      letter-spacing: 0.1em;
-      position: absolute; bottom: 24px; right: 24px;
-      opacity: 0.7;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.08em;
+      position: absolute; bottom: 18px; right: 18px;
+      opacity: 0.6;
       z-index: 1;
     }
     .pl-loader {
       position: absolute;
-      bottom: 90px; left: 50%; transform: translateX(-50%);
+      bottom: 80px; left: 50%; transform: translateX(-50%);
       z-index: 1;
-      width: 140px;
-      height: 4px;
+      margin-top: 0;
+      width: 120px;
+      height: 3px;
       border-radius: 99px;
       background: var(--pl-track);
       overflow: hidden;
@@ -141,52 +130,17 @@
     .pl-loader::after {
       content: '';
       position: absolute;
-      top: 0; left: -50%;
-      width: 50%;
+      top: 0; left: -45%;
+      width: 45%;
       height: 100%;
       border-radius: 99px;
       background: var(--accent);
-      box-shadow: 0 0 12px var(--accent-glow);
-      animation: plScroll 1.1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+      box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+      animation: plScroll 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     }
     @keyframes plScroll {
-      0%   { left: -50%; }
+      0%   { left: -45%; }
       100% { left: 100%; }
-    }
-
-    /* আধুনিক ট্যাব বার ও নেভিগেশন লেআউট ফিনিশিং */
-    #tabBar {
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: color-mix(in srgb, var(--surface) 85%, transparent);
-      border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
-      box-shadow: var(--shadow-smooth);
-      border-radius: 24px 24px 0 0;
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    
-    .tab-btn {
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .tab-btn.active {
-      color: var(--accent) !important;
-      transform: translateY(-2px);
-    }
-
-    /* হেডার ও কার্ড ডিজাইন রিফাইনমেন্ট */
-    header {
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: color-mix(in srgb, var(--surface) 80%, transparent) !important;
-      border-bottom: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
-    }
-
-    .header-icon-btn, .theme-pill, .wvm-action-btn {
-      border-radius: var(--radius-md);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-    .header-icon-btn:active, .theme-pill:active {
-      transform: scale(0.92);
     }
   </style>
 </head>
@@ -509,7 +463,7 @@ Login
 <div id="watchEmpty" style="display:none;padding:48px 16px;text-align:center;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;">
 <i class="fa-solid fa-video" style="font-size:2rem;margin-bottom:12px;display:block;opacity:0.4;"></i>
 <div style="font-size:0.85rem;">No Videos</div>
-</div>
+</div
 <div style="display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;">
 <!-- Top Picks Section -->
 <div id="editorsChoiceSection" style="display:none;">
