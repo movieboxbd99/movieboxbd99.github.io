@@ -1,9 +1,9 @@
 {
   "id": "xyz.moviebox_bd.twa",
-  "name": "MovieBox BD",
-  "short_name": "MovieBox BD",
+  "name": "Mixo BD",
+  "short_name": "Mixo BD",
   "version": "4.0.2",
-  "description": "moviebox bd - Live TV, FM, Movie & Podcast",
+  "description": "mixo bd - Live TV, FM, Movie & Podcast",
   "start_url": "https://moviebox-bd.xyz/index.html",
   "scope": "/",
   "display": "standalone",
@@ -72,14 +72,14 @@
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "CastFM Mobile View"
+      "label": "MixoBD Mobile View"
     },
     {
       "src": "screenshots/desktop.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "CastFM Desktop View"
+      "label": "MixoBD Desktop View"
     }
   ],
   "shortcuts": [
