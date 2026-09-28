@@ -1,4 +1,4 @@
-const CACHE = 'MixoBD-v1.0.0';
+const CACHE = 'MixoBD-v1.1.0';
 const ASSETS = [
   '/',
   './style.css',
